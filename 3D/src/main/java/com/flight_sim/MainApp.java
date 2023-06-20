@@ -1,4 +1,4 @@
-package com.javafx;
+package com.flight_sim;
 
 import javafx.animation.AnimationTimer;
 import javafx.animation.TranslateTransition;
