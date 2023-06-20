@@ -1,4 +1,4 @@
-package com.example.abcdef;
+package com.javafx;
 
 import javafx.application.Application;
 import javafx.scene.*;
@@ -14,7 +14,7 @@ import java.util.TimerTask;
 import static java.lang.Math.ceil;
 import static java.lang.Math.floor;
 
-public class HelloApplication extends Application {
+public class MainApp extends Application {
     //constants
     public static final int WIDTH = 1440;
     public static final int HEIGHT = 800;

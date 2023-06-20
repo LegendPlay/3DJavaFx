@@ -1,8 +1,8 @@
-module com.example.abcdef {
+module com.javafx {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
 
-
-    opens com.example.abcdef to javafx.fxml;
-    exports com.example.abcdef;
+    opens com.javafx to javafx.fxml;
+    exports com.javafx;
 }
