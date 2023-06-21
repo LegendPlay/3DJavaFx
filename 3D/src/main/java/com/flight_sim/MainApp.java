@@ -5,7 +5,6 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,7 +30,6 @@ public class MainApp extends Application {
         stage.addEventHandler(KeyEvent.KEY_PRESSED, camera::handleKeyPress);
 
         // makes stage displayable
-        scene.setFill(Color.LIGHTBLUE);
         stage.setTitle("Flight Simulator");
         stage.setScene(scene);
         stage.setResizable(true);
