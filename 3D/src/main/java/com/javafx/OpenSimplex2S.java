@@ -1,5 +1,6 @@
-package com.flight_sim;
-
+package com.javafx;
+// File provided under CC0-1.0 license.
+// https://github.com/KdotJPG/OpenSimplex2.git
 /**
  * K.jpg's OpenSimplex 2, smooth variant ("SuperSimplex")
  */

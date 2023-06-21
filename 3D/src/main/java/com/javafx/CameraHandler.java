@@ -1,4 +1,4 @@
-package com.flight_sim;
+package com.javafx;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.Camera;
@@ -8,8 +8,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-
-import static java.lang.Math.floor;
 
 public class CameraHandler {
     private static final double TRANSLATION_AMOUNT = 10.0;
@@ -34,9 +32,9 @@ public class CameraHandler {
         // set up the camera
         camera.setNearClip(20);
         camera.setFarClip(2000);
-        cameraTranslateX = floor((double) TerrainGeneration.BOXES_PER_ROW * TerrainGeneration.BOX_SIZE / 2);
-        cameraTranslateY = -250;
-        cameraTranslateZ = 50;
+        cameraTranslateX = 0;
+        cameraTranslateY = -10;
+        cameraTranslateZ = 0;
 
         camera.setTranslateX(cameraTranslateX);
         camera.setTranslateY(cameraTranslateY);
@@ -72,12 +70,12 @@ public class CameraHandler {
     }
 
     public void handleAnimationTick() {
-        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(100), camera);
+        /* TranslateTransition translateTransition = new TranslateTransition(Duration.millis(100), camera);
         // TODO move forward temporary
         cameraTranslateZ = camera.getTranslateZ() + 5;
         translateTransition.play();
 
-        camera.setTranslateZ(cameraTranslateZ);
+        camera.setTranslateZ(cameraTranslateZ); */
     }
 
     public double getCameraTranslateX() {
