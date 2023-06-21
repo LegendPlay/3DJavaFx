@@ -6,8 +6,8 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
-    <configuration name="MainApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.javafx.MainApp" />
+    <configuration name="StartPage" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.javafx.StartPage" />
       <module name="flightsimulator" />
       <extension name="coverage">
         <pattern>
@@ -21,7 +21,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MainApp" />
+        <item itemvalue="Application.StartPage" />
       </list>
     </recent_temporary>
   </component>
