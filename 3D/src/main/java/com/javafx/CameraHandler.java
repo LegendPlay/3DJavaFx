@@ -9,8 +9,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
-import static java.lang.Math.floor;
-
 public class CameraHandler {
     private static final double TRANSLATION_AMOUNT = 10.0;
     private static final double ROTATION_AMOUNT = 2.0;
