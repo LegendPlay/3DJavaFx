@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainApp extends Application {
+public class FlightSimulatorGame extends Application {
     // constants
     private static final int STAGE_WIDTH = 1440;
     private static final int STAGE_HEIGHT = 800;
@@ -45,9 +45,5 @@ public class MainApp extends Application {
             }
         };
         animationTimer.start();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }
