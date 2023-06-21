@@ -20,7 +20,7 @@ public class FlightSimulatorGame {
         camera.setupCamera(scene);
 
         // terrain
-        Terrain terrain = new Terrain(group, 100, camera);
+        Terrain terrain = new Terrain(group, 400, camera);
 
         // manage user input
         scene.addEventHandler(KeyEvent.KEY_PRESSED, camera::handleKeyPress);
