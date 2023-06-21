@@ -1,5 +1,7 @@
 package com.javafx;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -15,7 +17,7 @@ public class StartPageController {
     }
 
     @FXML
-    private void goToSettings() {
-
+    private void goToSettings() throws IOException {
+        StartPage.setRoot("settingsMenu");
     }
 }
