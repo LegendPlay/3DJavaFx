@@ -12,29 +12,29 @@ import javafx.util.Duration;
 import static java.lang.Math.floor;
 
 public class CameraHandler {
+    private static final double TRANSLATION_AMOUNT = 10.0;
+    private static final double ROTATION_AMOUNT = 2.0;
+
     private Camera camera;
     private Rotate cameraRotation;
     private double cameraTranslateX;
     private double cameraTranslateY;
     private double cameraTranslateZ;
 
-    private static final double TRANSLATION_AMOUNT = 10.0;
-    private static final double ROTATION_AMOUNT = 2.0;
-
-    public void setupCamera(Scene scene, int boxesPerRow) {
+    public void setupCamera(Scene scene) {
         camera = new PerspectiveCamera(true);
 
         cameraRotation = new Rotate(0, Rotate.Y_AXIS);
         camera.getTransforms().add(cameraRotation);
 
-        // creating the scene
+        // create scene
         scene.setFill(Color.LIGHTBLUE);
         scene.setCamera(camera);
 
-        // setting up the camera
+        // set up the camera
         camera.setNearClip(20);
         camera.setFarClip(2000);
-        cameraTranslateX = floor((double) boxesPerRow * TerrainGeneration.BOX_SIZE / 2);
+        cameraTranslateX = floor((double) TerrainGeneration.BOXES_PER_ROW * TerrainGeneration.BOX_SIZE / 2);
         cameraTranslateY = -250;
         cameraTranslateZ = 50;
 
@@ -73,6 +73,7 @@ public class CameraHandler {
 
     public void handleAnimationTick() {
         TranslateTransition translateTransition = new TranslateTransition(Duration.millis(100), camera);
+        // move forward temporary TODO
         cameraTranslateZ = camera.getTranslateZ() + 5;
         translateTransition.play();
 
