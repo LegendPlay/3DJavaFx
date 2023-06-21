@@ -16,21 +16,22 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        // creating the group that is added to the scene
+        // create group that is added to the scene
         Group group = new Group();
         Scene scene = new Scene(group, STAGE_WIDTH, STAGE_HEIGHT, true);
 
         // terrain
         TerrainGeneration terrainGeneration = new TerrainGeneration();
-        terrainGeneration.createTerrain(group, TerrainGeneration.BOXES_PER_ROW);
+        terrainGeneration.createTerrain(group);
 
+        // camera
         CameraHandler camera = new CameraHandler();
-        camera.setupCamera(scene, TerrainGeneration.BOXES_PER_ROW);
+        camera.setupCamera(scene);
 
-        // manages the user inputs
+        // manage user input
         stage.addEventHandler(KeyEvent.KEY_PRESSED, camera::handleKeyPress);
 
-        // makes stage displayable
+        // make stage displayable
         stage.setTitle("Flight Simulator");
         stage.setScene(scene);
         stage.setResizable(false);
