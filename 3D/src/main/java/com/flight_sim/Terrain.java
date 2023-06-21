@@ -7,7 +7,12 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
 public class Terrain {
-    Terrain(Group group, int seed, int minX, int minZ, int maxX, int maxZ) {
+    Terrain(Group group, int seed, CameraHandler camera) {
+        int minX = (int) camera.getCameraTranslateX() - 100;
+        int maxX = (int) camera.getCameraTranslateX() + 100;
+        int minZ = (int) camera.getCameraTranslateY() - 100;
+        int maxZ = (int) camera.getCameraTranslateY() + 100;
+
         OpenSimplex2S simplex = new OpenSimplex2S();
         TriangleMesh mesh = new TriangleMesh();
         // generating triangles

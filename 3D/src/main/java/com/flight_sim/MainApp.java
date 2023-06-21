@@ -25,12 +25,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(group, STAGE_WIDTH, STAGE_HEIGHT, true);
         CameraHandler camera = new CameraHandler();
 
-        int minX = (int) camera.getCameraTranslateX() - 100;
-        int maxX = (int) camera.getCameraTranslateX() + 100;
-        int minZ = (int) camera.getCameraTranslateY() - 100;
-        int maxZ = (int) camera.getCameraTranslateY() + 100;
-
-        Terrain terrain = new Terrain(group, 100, minX, minZ, maxX, maxZ);
+        Terrain terrain = new Terrain(group, 100, camera);
 
         // manages the user inputs
         stage.addEventHandler(KeyEvent.KEY_PRESSED, camera::handleKeyPress);
