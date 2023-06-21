@@ -73,10 +73,17 @@ public class CameraHandler {
 
     public void handleAnimationTick() {
         TranslateTransition translateTransition = new TranslateTransition(Duration.millis(100), camera);
-        // move forward temporary TODO
+        // TODO move forward temporary
         cameraTranslateZ = camera.getTranslateZ() + 5;
         translateTransition.play();
 
         camera.setTranslateZ(cameraTranslateZ);
+    }
+
+    public double getCameraTranslateX() {
+        return cameraTranslateX;
+    }
+    public double getCameraTranslateY() {
+        return cameraTranslateY;
     }
 }
