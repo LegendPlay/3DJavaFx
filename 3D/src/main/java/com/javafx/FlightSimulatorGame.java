@@ -16,13 +16,11 @@ public class FlightSimulatorGame {
         Group group = new Group();
         Scene scene = new Scene(group, STAGE_WIDTH, STAGE_HEIGHT, true);
 
-        // terrain
-        TerrainGeneration terrainGeneration = new TerrainGeneration();
-        terrainGeneration.createTerrain(group);
-
-        // camera
         CameraHandler camera = new CameraHandler();
         camera.setupCamera(scene);
+
+        // terrain
+        Terrain terrain = new Terrain(group, 100, camera);
 
         // manage user input
         scene.addEventHandler(KeyEvent.KEY_PRESSED, camera::handleKeyPress);
