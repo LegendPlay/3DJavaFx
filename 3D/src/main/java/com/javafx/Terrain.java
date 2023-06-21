@@ -18,7 +18,7 @@ public class Terrain {
         // generating triangles
         for (float x = minX; x < maxX; x += 0.25) {
             for (float z = minZ; z < maxZ; z += 0.25) {
-                float y = (300 * simplex.noise2(seed, x, z));
+                float y = (150 * simplex.noise2(seed, 0.01*x, 0.01*z));
                 mesh.getPoints().addAll(x, y, z);
             }
         }
