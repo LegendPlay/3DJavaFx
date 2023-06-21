@@ -17,7 +17,7 @@ public class StartPage extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("startMenuController"), 1440, 800);
+        scene = new Scene(loadFXML("startMenu"), 1440, 800);
 
         stage.setTitle("Flight Simulator");
         stage.setScene(scene);
@@ -25,12 +25,12 @@ public class StartPage extends Application {
         stage.show();
     }
     
-    public void setRoot(String fxml) throws IOException {
+    static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
-    private Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/" + fxml + ".fxml"));
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(StartPage.class.getResource("/fxml/" + fxml + ".fxml"));
         return fxmlLoader.load();
     }
 }
