@@ -21,7 +21,7 @@ public class StartPage extends Application {
 
         stage.setTitle("Flight Simulator");
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
     
