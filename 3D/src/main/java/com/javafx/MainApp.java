@@ -1,4 +1,4 @@
-package com.flight_sim;
+package com.javafx;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;

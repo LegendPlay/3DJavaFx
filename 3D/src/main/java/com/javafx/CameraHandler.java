@@ -1,4 +1,4 @@
-package com.flight_sim;
+package com.javafx;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.Camera;
