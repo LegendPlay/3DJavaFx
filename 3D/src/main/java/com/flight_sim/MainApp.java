@@ -1,44 +1,48 @@
-package com.javafx;
+package com.flight_sim;
 
+import javafx.animation.AnimationTimer;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
-import javafx.scene.*;
+import javafx.scene.Camera;
+import javafx.scene.Group;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static java.lang.Math.ceil;
 import static java.lang.Math.floor;
 
 public class MainApp extends Application {
-    //constants
+    // constants
     public static final int WIDTH = 1440;
     public static final int HEIGHT = 800;
 
     @Override
     public void start(Stage stage) throws IOException {
-        //change to set number of boxes per row
+        // change to set number of boxes per row
         int boxesperrow = 255;
         int boxes = boxesperrow * boxesperrow;
 
-        //creating new array for the landscape to be stored
+        // creating new array for the landscape to be stored
         Box[] cubes;
         cubes = new Box[boxes];
 
-
-        //creating the group that is later added to the scene
+        // creating the group that is later added to the scene
         Group group = new Group();
 
-        //materials
+        // materials
         final PhongMaterial grass = new PhongMaterial();
         grass.setSpecularColor(Color.LIGHTGREEN);
         grass.setDiffuseColor(Color.GREEN);
 
-        //creating the landscape
+        // creating the landscape
         for (int i = 0; i < boxes; i++) {
 
             cubes[i] = new Box(50, ceil(Math.random() * 150), 50);
@@ -49,15 +53,14 @@ public class MainApp extends Application {
 
         }
 
-
         Camera camera = new PerspectiveCamera(true);
 
-        //creating the scene
-        Scene scene = new Scene(group, WIDTH, HEIGHT,true);
+        // creating the scene
+        Scene scene = new Scene(group, WIDTH, HEIGHT, true);
         scene.setFill(Color.LIGHTBLUE);
         scene.setCamera(camera);
 
-        //setting up the camera
+        // setting up the camera
         camera.translateZProperty().set(-500);
         camera.setNearClip(20);
         camera.setFarClip(2000);
@@ -65,7 +68,7 @@ public class MainApp extends Application {
         camera.translateYProperty().set(-250);
         camera.translateZProperty().set(50);
 
-        //manages the user inputs
+        // manages the user inputs
         stage.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
             switch (keyEvent.getCode()) {
                 case A:
@@ -75,10 +78,10 @@ public class MainApp extends Application {
                     camera.translateXProperty().set(camera.getTranslateX() + 10);
                     break;
                 case W:
-                    camera.translateYProperty().set(camera.getTranslateY() - 3);
+                    camera.translateYProperty().set(camera.getTranslateY() - 5);
                     break;
                 case S:
-                    camera.translateYProperty().set(camera.getTranslateY() + 6);
+                    camera.translateYProperty().set(camera.getTranslateY() + 5);
                     break;
                 case LEFT:
                     camera.rotateProperty().set(camera.getRotate() - 2);
@@ -86,30 +89,29 @@ public class MainApp extends Application {
                 case RIGHT:
                     camera.rotateProperty().set(camera.getRotate() + 2);
                     break;
-
+                default:
+                    break;
             }
         });
 
-        //makes stage displayable
-        stage.setTitle("3D");
+        // makes stage displayable
+        stage.setTitle("Flight Simulator");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
 
-        //runs  the task every 10ms
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
+        // main game ticks
+        AnimationTimer animationTimer = new AnimationTimer() {
             @Override
-            public void run() {
+            public void handle(long arg0) {
+                // smooth movement
+                TranslateTransition translateTransition = new TranslateTransition(Duration.millis(100), camera);
                 camera.translateZProperty().set(camera.getTranslateZ() + 5);
+                translateTransition.play();
             }
-
         };
-        timer.scheduleAtFixedRate(task, 0, 10);
-
-
+        animationTimer.start();
     }
-
 
     public static void main(String[] args) {
         launch();

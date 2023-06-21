@@ -3,6 +3,6 @@ module com.javafx {
     requires javafx.fxml;
     requires javafx.media;
 
-    opens com.javafx to javafx.fxml;
-    exports com.javafx;
+    opens com.flight_sim to javafx.fxml;
+    exports com.flight_sim;
 }
