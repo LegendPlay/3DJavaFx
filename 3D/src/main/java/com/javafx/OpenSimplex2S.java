@@ -1,4 +1,4 @@
-package com.flight_sim;
+package com.javafx;
 
 /**
  * K.jpg's OpenSimplex 2, smooth variant ("SuperSimplex")
