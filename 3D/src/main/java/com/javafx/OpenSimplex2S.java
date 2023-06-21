@@ -1,4 +1,4 @@
-package com.java_fx;
+package com.javafx;
 // File provided under CC0-1.0 license.
 // https://github.com/KdotJPG/OpenSimplex2.git
 /**
