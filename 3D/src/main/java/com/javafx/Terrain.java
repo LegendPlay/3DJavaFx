@@ -8,17 +8,20 @@ import javafx.scene.shape.TriangleMesh;
 
 public class Terrain {
     Terrain(Group group, int seed, CameraHandler camera) {
-        int minX = (int) camera.getCameraTranslateX() - 150;
-        int maxX = (int) camera.getCameraTranslateX() + 150;
-        int minZ = (int) camera.getCameraTranslateY() - 150;
-        int maxZ = (int) camera.getCameraTranslateY() + 150;
+        int minX = (int) camera.getCameraTranslateX() - 2000;
+        int maxX = (int) camera.getCameraTranslateX() + 2000;
+        int minZ = (int) camera.getCameraTranslateY() - 2000;
+        int maxZ = (int) camera.getCameraTranslateY() + 2000;
 
         OpenSimplex2S simplex = new OpenSimplex2S();
         TriangleMesh mesh = new TriangleMesh();
         // generating triangles
-        for (float x = minX; x < maxX; x += 0.25) {
-            for (float z = minZ; z < maxZ; z += 0.25) {
+        for (float x = minX; x < maxX; x += 5) {
+            for (float z = minZ; z < maxZ; z += 5) {
                 float y = (150 * simplex.noise2(seed, 0.01*x, 0.01*z));
+                // add more variety to map
+                y += (20 * simplex.noise2(seed, 0.02*x, 0.02*y));
+                y += (10 * simplex.noise2(seed, 0.04*x, 0.04*y));
                 mesh.getPoints().addAll(x, y, z);
             }
         }
