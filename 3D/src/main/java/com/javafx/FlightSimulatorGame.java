@@ -3,6 +3,7 @@ package com.javafx;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -12,7 +13,6 @@ public class FlightSimulatorGame {
     private static final int STAGE_HEIGHT = 800;
 
     public void startGame(Stage stage) {
-        // create group that is added to the scene
         Group group = new Group();
         Scene scene = new Scene(group, STAGE_WIDTH, STAGE_HEIGHT, true);
 

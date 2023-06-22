@@ -9,4 +9,9 @@ public class SettingsController {
     private void goToStartMenu () throws IOException {
         StartPage.setRoot("startMenu");
     }
+
+    @FXML
+    private void goBackScene() throws IOException {
+        
+    }
 }
