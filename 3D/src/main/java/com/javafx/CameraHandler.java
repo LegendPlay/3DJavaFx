@@ -1,13 +1,11 @@
 package com.javafx;
 
-import javafx.animation.TranslateTransition;
 import javafx.scene.Camera;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
-import javafx.util.Duration;
 
 public class CameraHandler {
     private static final double TRANSLATION_AMOUNT = 10.0;
