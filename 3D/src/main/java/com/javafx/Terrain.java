@@ -18,10 +18,13 @@ public class Terrain {
         // generating triangles
         for (float x = minX; x < maxX; x += 5) {
             for (float z = minZ; z < maxZ; z += 5) {
-                float y = (150 * simplex.noise2(seed, 0.01*x, 0.01*z));
+                //ytemp hoplds the y value calculated by the noise function
+                float ytemp = (1 * simplex.noise2(seed, 0.005*x, 0.005*z));
                 // add more variety to map
-                y += (20 * simplex.noise2(seed, 0.02*x, 0.02*y));
-                y += (10 * simplex.noise2(seed, 0.04*x, 0.04*y));
+                ytemp += (0.25 * simplex.noise2(seed, 0.01*x, 0.01*z));
+                ytemp += (0.125 * simplex.noise2(seed, 0.02*x, 0.02*z));
+                float y = (float) Math.pow(-Math.abs(ytemp), 3);
+                y *= 150;
                 mesh.getPoints().addAll(x, y, z);
             }
         }
