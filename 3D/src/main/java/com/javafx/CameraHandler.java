@@ -30,7 +30,7 @@ public class CameraHandler {
         scene.setCamera(camera);
 
         // set up the camera
-        camera.setNearClip(20);
+        camera.setNearClip(10);
         camera.setFarClip(2000);
         cameraTranslateX = 0;
         cameraTranslateY = -10;
@@ -50,9 +50,15 @@ public class CameraHandler {
                 cameraTranslateX += TRANSLATION_AMOUNT;
                 break;
             case W:
-                cameraTranslateY -= TRANSLATION_AMOUNT;
+                cameraTranslateZ += TRANSLATION_AMOUNT;
                 break;
             case S:
+                cameraTranslateZ -= TRANSLATION_AMOUNT;
+                break;
+            case R:
+                cameraTranslateY -= TRANSLATION_AMOUNT;
+                break;
+            case F:
                 cameraTranslateY += TRANSLATION_AMOUNT;
                 break;
             case LEFT:
@@ -66,6 +72,7 @@ public class CameraHandler {
         }
 
         camera.setTranslateX(cameraTranslateX);
+        camera.setTranslateZ(cameraTranslateZ);
         camera.setTranslateY(cameraTranslateY);
     }
 

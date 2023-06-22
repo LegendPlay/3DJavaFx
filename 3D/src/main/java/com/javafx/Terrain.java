@@ -23,7 +23,7 @@ public class Terrain {
                 // add more variety to map
                 ytemp += (0.25 * simplex.noise2(seed, 0.01*x, 0.01*z));
                 ytemp += (0.125 * simplex.noise2(seed, 0.02*x, 0.02*z));
-                float y = (float) Math.pow(ytemp, 3);
+                float y = (float) Math.pow(-Math.abs(ytemp), 3);
                 y *= 150;
                 mesh.getPoints().addAll(x, y, z);
             }
