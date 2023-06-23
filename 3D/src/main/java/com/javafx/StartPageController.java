@@ -11,7 +11,7 @@ public class StartPageController {
     private Button startButton;
 
     @FXML
-    private void startGame() {
+    private void startGame() throws IOException {
         FlightSimulatorGame game = new FlightSimulatorGame();
         game.startGame((Stage) startButton.getScene().getWindow());
     }
