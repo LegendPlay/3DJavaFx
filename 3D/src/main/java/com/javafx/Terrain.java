@@ -1,14 +1,12 @@
 package com.javafx;
 
-import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
 public class Terrain {
-    Terrain(Group group, int seed, CameraHandler camera) {
+    MeshView generateTerrain(int seed, CameraHandler camera) {
         int minX = (int) camera.getCameraTranslateX() - 2000;
         int maxX = (int) camera.getCameraTranslateX() + 2000;
         int minZ = (int) camera.getCameraTranslateY() - 2000;
@@ -33,7 +31,9 @@ public class Terrain {
         }
         mesh.getTexCoords().addAll(0, 0);
         addFaces(mesh);
-        generateGroup(mesh, group);
+        MeshView finishView = generateGroup(mesh);
+
+        return finishView;
     }
 
     private void addFaces(TriangleMesh mesh) {
@@ -50,7 +50,7 @@ public class Terrain {
         }
     }
 
-    private void generateGroup(TriangleMesh mesh, Group group) {
+    private MeshView generateGroup(TriangleMesh mesh) {
         // define materials
         final PhongMaterial grass = new PhongMaterial();
         grass.setSpecularColor(Color.LIGHTGREEN);
@@ -59,6 +59,7 @@ public class Terrain {
         MeshView meshView = new MeshView(mesh);
         meshView.setMaterial(grass);
         //meshView.setDrawMode(DrawMode.LINE);
-        group.getChildren().add(meshView);
+
+        return meshView;
     }
 }
