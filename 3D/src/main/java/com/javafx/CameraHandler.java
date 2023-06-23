@@ -31,7 +31,7 @@ public class CameraHandler {
         camera.setNearClip(10);
         camera.setFarClip(2000);
         cameraTranslateX = 0;
-        cameraTranslateY = -10;
+        cameraTranslateY = 10;
         cameraTranslateZ = 0;
 
         camera.setTranslateX(cameraTranslateX);

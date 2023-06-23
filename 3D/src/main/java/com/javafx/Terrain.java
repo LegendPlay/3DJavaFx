@@ -3,6 +3,7 @@ package com.javafx;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
@@ -18,13 +19,15 @@ public class Terrain {
         // generating triangles
         for (float x = minX; x < maxX; x += 5) {
             for (float z = minZ; z < maxZ; z += 5) {
-                //ytemp hoplds the y value calculated by the noise function
-                float ytemp = (1 * simplex.noise2(seed, 0.005*x, 0.005*z));
+                // ytemp hoplds the y value calculated by the noise function
+                float ytemp = (1 * simplex.noise2(seed, 0.005 * x, 0.005 * z));
                 // add more variety to map
-                ytemp += (0.25 * simplex.noise2(seed, 0.01*x, 0.01*z));
-                ytemp += (0.125 * simplex.noise2(seed, 0.02*x, 0.02*z));
-                float y = (float) Math.pow(-Math.abs(ytemp), 3);
-                y *= 150;
+                ytemp += (0.4 * simplex.noise2(seed, 0.01 * x, 0.01 * z));
+                ytemp += (0.2 * simplex.noise2(seed, 0.02 * x, 0.02 * z));
+                ytemp/=1.6;
+                float y = (float) Math.pow(Math.abs(ytemp), 3);
+                y *= 200;
+                // System.out.println("x:  "+x+"  y:   "+y+"  z:   "+z);
                 mesh.getPoints().addAll(x, y, z);
             }
         }
@@ -33,9 +36,8 @@ public class Terrain {
         generateGroup(mesh, group);
     }
 
-    private void addFaces(TriangleMesh mesh) {// add faces to the mesh
+    private void addFaces(TriangleMesh mesh) {
         int numPoints = mesh.getPoints().size() / 3;
-
         int numRows = (int) Math.sqrt(numPoints);
         int numCols = numRows;
 
@@ -56,7 +58,7 @@ public class Terrain {
 
         MeshView meshView = new MeshView(mesh);
         meshView.setMaterial(grass);
-
+        //meshView.setDrawMode(DrawMode.LINE);
         group.getChildren().add(meshView);
     }
 }
