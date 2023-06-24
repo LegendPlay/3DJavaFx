@@ -26,7 +26,7 @@ public class CameraHandler {
         cameraRotationY = new Rotate(0, Rotate.Y_AXIS);
         camera.getTransforms().add(cameraRotationY);
         cameraRotationX = new Rotate(0, Rotate.X_AXIS);
-        camera.getTransforms().add(cameraRotationY);
+        camera.getTransforms().add(cameraRotationX);
 
         camera.setNearClip(10);
         camera.setFarClip(2000);
