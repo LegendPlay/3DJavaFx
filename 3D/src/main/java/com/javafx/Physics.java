@@ -8,6 +8,8 @@ public class Physics {
     private static final double AIR_DENSITY = 1.225;
     private static final double WING_AREA = 525.0;
     private static final int MASS = 396893;
+    private static final double TURN_PER_KEYPRESS = 2;
+    private double velocityY = 0;
     private double velocityX = 0;
     private double velocityZ = 0;
     private double velocity = 0;
@@ -35,10 +37,16 @@ public class Physics {
         return 0.5 * Math.pow(velocity, 2) * DRAG_COEFFICIENT_FLIGHT * WING_AREA;
     }
 
-    public void turn(double angle) {
+    public void turn(double angle) {// changes angle
         this.angle += angle;
         // keep the angle between 0 and 360 degrees (for convenience)
-        angle += angle<0?360:angle>360?(-360):0;
+        angle += angle < 0 ? 360 : angle > 360 ? (-360) : 0;
+    }
+
+    public double turn(double angle, double time) {// changes angle and simulates resulting rotation, speed changes...
+        // returns angle of plane (angle around plane body and not coordinate axis)
+        turn(angle);
+        return angle / (360*time)*45;
     }
 
     // getter and setter methods
