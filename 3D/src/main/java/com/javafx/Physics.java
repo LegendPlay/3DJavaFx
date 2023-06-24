@@ -7,8 +7,9 @@ public class Physics {
     private static final double DRAG_COEFFICIENT_FLIGHT = 0.012;
     private static final double AIR_DENSITY = 1.225;
     private static final double WING_AREA = 525.0;
+    private static final double MAX_BANK_ANGLE = 66.5;
     private static final int MASS = 396893;
-    private static final double TURN_PER_KEYPRESS = 2;
+    private static final int TURN_PER_SECOND = 3;
     private double velocityY = 0;
     private double velocityX = 0;
     private double velocityZ = 0;
@@ -34,7 +35,7 @@ public class Physics {
     }
 
     private double calcDrag() {
-        return 0.5 * Math.pow(velocity, 2) * DRAG_COEFFICIENT_FLIGHT * WING_AREA;
+        return 0.5 * Math.pow(velocity, 2) * DRAG_COEFFICIENT_FLIGHT * WING_AREA * AIR_DENSITY;
     }
 
     public void turn(double angle) {// changes angle
@@ -45,8 +46,9 @@ public class Physics {
 
     public double turn(double angle, double time) {// changes angle and simulates resulting rotation, speed changes...
         // returns angle of plane (angle around plane body and not coordinate axis)
+        // only for fast, approximated results
         turn(angle);
-        return angle / (360*time)*45;
+        return angle / (360 * time) * 45;
     }
 
     // getter and setter methods
