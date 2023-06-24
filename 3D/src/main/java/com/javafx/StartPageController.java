@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 public class StartPageController {
     @FXML
@@ -13,11 +12,11 @@ public class StartPageController {
     @FXML
     private void startGame() throws IOException {
         FlightSimulatorGame game = new FlightSimulatorGame();
-        game.startGame((Stage) startButton.getScene().getWindow());
+        StartPage.setScene(game.startGame());
     }
 
     @FXML
     private void goToSettings() throws IOException {
-        StartPage.setRoot("settingsMenu");
+        StartPage.setSettingsScene("settingsMenu", true);
     }
 }
