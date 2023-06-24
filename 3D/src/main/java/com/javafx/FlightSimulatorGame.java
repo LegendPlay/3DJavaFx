@@ -7,14 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.MeshView;
-import javafx.stage.Stage;
 
 public class FlightSimulatorGame {
     // constants
     private static final int STAGE_WIDTH = 1440;
     private static final int STAGE_HEIGHT = 800;
 
-    public void startGame(Stage stage) {
+    public Scene startGame() {
         Group group = new Group();
         Scene scene = new Scene(group, STAGE_WIDTH, STAGE_HEIGHT, true);
 
@@ -42,6 +41,6 @@ public class FlightSimulatorGame {
         };
         animationTimer.start();
 
-        stage.setScene(scene);
+        return scene; 
     }
 }
