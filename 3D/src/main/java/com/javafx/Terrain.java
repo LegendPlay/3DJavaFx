@@ -14,16 +14,15 @@ public class Terrain {
         int minZ = (int) camera.getCameraTranslateY() - 2000;
         int maxZ = (int) camera.getCameraTranslateY() + 2000;
 
-        OpenSimplex2S simplex = new OpenSimplex2S();
         TriangleMesh mesh = new TriangleMesh();
         // generating triangles
         for (float x = minX; x < maxX; x += 5) {
             for (float z = minZ; z < maxZ; z += 5) {
                 // ytemp hoplds the y value calculated by the noise function
-                float ytemp = (1 * simplex.noise2(seed, 0.005 * x, 0.005 * z));
+                float ytemp = (1 * OpenSimplex2S.noise2(seed, 0.005 * x, 0.005 * z));
                 // add more variety to map
-                ytemp += (0.4 * simplex.noise2(seed, 0.01 * x, 0.01 * z));
-                ytemp += (0.2 * simplex.noise2(seed, 0.02 * x, 0.02 * z));
+                ytemp += (0.4 * OpenSimplex2S.noise2(seed, 0.01 * x, 0.01 * z));
+                ytemp += (0.2 * OpenSimplex2S.noise2(seed, 0.02 * x, 0.02 * z));
                 ytemp /= 1.6;
                 float y = (float) Math.pow(Math.abs(ytemp), 3);
                 y *= 200;
