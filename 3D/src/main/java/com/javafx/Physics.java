@@ -9,7 +9,7 @@ public class Physics {
     private static final double WING_AREA = 525.0;
     private static final double MAX_BANK_ANGLE = 66.5;
     private static final int MASS = 396893;
-    private static final int TURN_PER_SECOND = 3;
+    private static final byte TURN_PER_SECOND = 3;
     private double velocityY = 0;
     private double velocityX = 0;
     private double velocityZ = 0;
@@ -26,6 +26,10 @@ public class Physics {
 
     public double getDeltaZ(double time) {
         return time * velocityZ;
+    }
+
+    public double getDeltaY(double time) {
+        return time * velocityY;
     }
 
     public void sleep(double time) {
