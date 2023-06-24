@@ -20,18 +20,6 @@ public class Physics {
         this.angle = angle;
     }
 
-    public double getDeltaX(double time) {
-        return time * velocityX;
-    }
-
-    public double getDeltaZ(double time) {
-        return time * velocityZ;
-    }
-
-    public double getDeltaY(double time) {
-        return time * velocityY;
-    }
-
     public void sleep(double time) {
         velocity -= calcDrag() * time / MASS;
         velocityX = velocity * Math.sin(angle);
@@ -53,6 +41,20 @@ public class Physics {
         // only for fast, approximated results
         turn(angle);
         return angle / (360 * time) * 45;
+    }
+
+    // getters for distance
+
+    public double getDeltaX(double time) {
+        return time * velocityX;
+    }
+
+    public double getDeltaZ(double time) {
+        return time * velocityZ;
+    }
+
+    public double getDeltaY(double time) {
+        return time * velocityY;
     }
 
     // getter and setter methods
