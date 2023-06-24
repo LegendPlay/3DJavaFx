@@ -6,6 +6,8 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
 public class Terrain {
+    // TODO Define Key 
+
     MeshView generateTerrain(int seed, CameraHandler camera) {
         int minX = (int) camera.getCameraTranslateX() - 2000;
         int maxX = (int) camera.getCameraTranslateX() + 2000;
@@ -22,10 +24,9 @@ public class Terrain {
                 // add more variety to map
                 ytemp += (0.4 * simplex.noise2(seed, 0.01 * x, 0.01 * z));
                 ytemp += (0.2 * simplex.noise2(seed, 0.02 * x, 0.02 * z));
-                ytemp/=1.6;
+                ytemp /= 1.6;
                 float y = (float) Math.pow(Math.abs(ytemp), 3);
                 y *= 200;
-                // System.out.println("x:  "+x+"  y:   "+y+"  z:   "+z);
                 mesh.getPoints().addAll(x, y, z);
             }
         }
@@ -58,7 +59,6 @@ public class Terrain {
 
         MeshView meshView = new MeshView(mesh);
         meshView.setMaterial(grass);
-        //meshView.setDrawMode(DrawMode.LINE);
 
         return meshView;
     }
