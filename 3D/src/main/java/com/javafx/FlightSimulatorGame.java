@@ -34,17 +34,25 @@ public class FlightSimulatorGame {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, cameraHandler::handleKeyPress);
 
         // main game ticks
+
+        int tickRateFPS = 60;
+        long tickDuration = (long) (1e9 / tickRateFPS); // tick rate to nanoseconds
+        
         AnimationTimer animationTimer = new AnimationTimer() {
             private long previousTime = 0;
 
             @Override
             public void handle(long currentTime) {
                 if (previousTime != 0) {
-                    long deltaTime = (currentTime - previousTime);
+                    long deltaTime = currentTime - previousTime;
 
-                    cameraHandler.handleAnimationTick(deltaTime);
-                }
-                previousTime = currentTime;
+                    if (deltaTime >= tickDuration) {
+                        cameraHandler.handleAnimationTick(deltaTime);
+                        previousTime = currentTime;
+                    }     
+                } else {
+                    previousTime = currentTime;
+                }                       
             }
         };
         animationTimer.start();
