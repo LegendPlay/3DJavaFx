@@ -6,6 +6,7 @@ public class Physics {
      * distance in meters
      * angle in degrees
      * velocity in m/s
+     * acceleration in m/s^2
      * 
      * the smaller the time used for the calculations the more precise and accurate
      * the results (higher update frequency of velocity)
@@ -17,6 +18,7 @@ public class Physics {
     private static final double WING_AREA = 525.0;
     private static final double MAX_BANK_ANGLE = 66.5;
     private static final double LIFT_COEFFICIENT = 0.52;
+    private static final double ACCELERATION = 5;
     private static final int MASS = 396893;
     private static final byte TURN_PER_SECOND = 3;
     private double velocity = 0;
@@ -59,6 +61,15 @@ public class Physics {
         double bank_angle = (1.94384 * velocity / 10) + 7;
         crashed = bank_angle > MAX_BANK_ANGLE ? true : false;
         return bank_angle * direction;
+    }
+
+    // acceleration and deceleration
+    public void accelerate(double time) {
+        velocity += ACCELERATION * time;
+    }
+
+    public void decelerate(double time) {
+        velocity -= ACCELERATION * time;
     }
 
     // getters for distance
