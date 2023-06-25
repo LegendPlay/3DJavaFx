@@ -34,13 +34,20 @@ public class FlightSimulatorGame {
 
         // main game ticks
         AnimationTimer animationTimer = new AnimationTimer() {
+            private long previousTime = 0;
+
             @Override
-            public void handle(long arg0) {
-                cameraHandler.handleAnimationTick();
+            public void handle(long currentTime) {
+                if (previousTime != 0) {
+                    long deltaTime = (currentTime - previousTime);
+
+                    cameraHandler.handleAnimationTick(deltaTime);
+                }
+                previousTime = currentTime;
             }
         };
         animationTimer.start();
 
-        return scene; 
+        return scene;
     }
 }

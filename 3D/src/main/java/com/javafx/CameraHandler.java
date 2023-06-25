@@ -99,7 +99,7 @@ public class CameraHandler {
         }
     }
 
-    public void handleAnimationTick() {
+    public void handleAnimationTick(long timeBetweenTickInNano) {
         camera.setTranslateX(cameraTranslateX);
         camera.setTranslateZ(cameraTranslateZ);
         camera.setTranslateY(cameraTranslateY);
