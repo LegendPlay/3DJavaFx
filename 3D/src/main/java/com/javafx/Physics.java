@@ -18,7 +18,7 @@ public class Physics {
     private static final double WING_AREA = 525.0;
     private static final double MAX_BANK_ANGLE = 66.5;
     private static final double LIFT_COEFFICIENT = 0.52;
-    private static final double ACCELERATION = 5;
+    private static final double ACCELERATION = 500;
     private static final int MASS = 396893;
     private static final byte TURN_PER_SECOND = 3;
     private double velocity = 0;
@@ -31,10 +31,12 @@ public class Physics {
     }
 
     public void sleep(double time, double altitude) {
-        velocity -= calcDrag(altitude) * time / MASS;
-        double velocityY = (GRAVITATIONAL_ACCELERATION - getLiftForce() / MASS) * time;
-        velocity = Math.sqrt(Math.pow(getVelocityX(), 2) + Math.pow(getVelocityZ(), 2) + Math.pow(velocityY, 2));
-        angleDownwards = Math.toDegrees(Math.acos(velocityY / velocity));
+        if (velocity != 0) {
+            velocity -= calcDrag(altitude) * time / MASS;
+            double velocityY = (GRAVITATIONAL_ACCELERATION - getLiftForce() / MASS) * time;
+            velocity = Math.sqrt(Math.pow(getVelocityX(), 2) + Math.pow(getVelocityZ(), 2) + Math.pow(velocityY, 2));
+            angleDownwards = Math.toDegrees(Math.acos(velocityY / velocity));
+        }
     }
 
     private double calcDrag(double altitude) {
@@ -43,13 +45,10 @@ public class Physics {
 
     public void turn(double angle) {// changes angle
         this.angle += angle;
-        // keep the angle between -1800 and 180 degrees (for convenience)
-        angle += angle < -180 ? 360 : angle > 180 ? (-360) : 0;
     }
 
     public void turnUp(double angle) {// turns plane up/down
         angleDownwards += angle;
-        angleDownwards += angleDownwards < -180 ? 360 : angleDownwards > 180 ? (-360) : 0;
     }
 
     public double turn(double angle, double time) {// changes angle and simulates resulting rotation, speed changes...
