@@ -17,6 +17,8 @@ public class CameraHandler {
     private double cameraTranslateZ;
     private double deltaX;
     private double deltaZ;
+    private double rotY;
+    private double rotX;
 
     public Camera setupCamera() {
         camera = new PerspectiveCamera(true);
@@ -73,16 +75,16 @@ public class CameraHandler {
                 cameraTranslateY += TRANSLATION_AMOUNT;
                 break;
             case LEFT:
-                cameraRotationY.setAngle(cameraRotationY.getAngle() - ROTATION_AMOUNT);
+                rotY -= ROTATION_AMOUNT;
                 break;
             case RIGHT:
-                cameraRotationY.setAngle(cameraRotationY.getAngle() + ROTATION_AMOUNT);
+                rotY += ROTATION_AMOUNT;
                 break;
             case UP:
-                cameraRotationX.setAngle(cameraRotationX.getAngle() + ROTATION_AMOUNT);
+                rotX += ROTATION_AMOUNT;
                 break;
             case DOWN:
-                cameraRotationX.setAngle(cameraRotationX.getAngle() - ROTATION_AMOUNT);
+                rotX -= ROTATION_AMOUNT;
                 break;
             default:
                 break;
@@ -93,6 +95,8 @@ public class CameraHandler {
         camera.setTranslateX(cameraTranslateX);
         camera.setTranslateZ(cameraTranslateZ);
         camera.setTranslateY(cameraTranslateY);
+        cameraRotationY.setAngle(rotY);
+        cameraRotationX.setAngle(rotX);
     }
 
     public double getCameraTranslateX() {
