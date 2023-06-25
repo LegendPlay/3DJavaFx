@@ -1,5 +1,6 @@
 package com.javafx;
 
+import java.util.*;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -26,7 +27,7 @@ public class FlightSimulatorGame {
 
         // terrain
         Terrain terrain = new Terrain();
-        MeshView mesh = terrain.generateTerrain(400, cameraHandler);
+        MeshView mesh = terrain.generateTerrain(new Random().nextInt(10000), cameraHandler);
         group.getChildren().add(mesh);
 
         // manage user input
