@@ -1,10 +1,6 @@
 package com.javafx;
 
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Properties;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +19,9 @@ public class StartPage extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         StartPage.stage = stage;
+
+        // read user settings
+        SettingsHandler.readSettings();
 
         scene = new Scene(loadFXML("startMenu"), 1440, 800);
 
