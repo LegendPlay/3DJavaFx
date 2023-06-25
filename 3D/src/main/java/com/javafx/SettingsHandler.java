@@ -21,7 +21,7 @@ public class SettingsHandler {
                 properties.setProperty("Key-RotateUp", "UP");
                 properties.setProperty("Key-FlyForward", "W");
                 properties.setProperty("Key-Decelerate", "S");
-                properties.setProperty("Key-RotateDown", "Down");
+                properties.setProperty("Key-RotateDown", "DOWN");
                 properties.setProperty("Key-TurnLeft", "A");
                 properties.setProperty("Key-TurnRight", "D");
                 properties.setProperty("Key-SettingsMenu", "ESCAPE");
