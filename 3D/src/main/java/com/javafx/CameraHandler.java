@@ -1,5 +1,7 @@
 package com.javafx;
 
+import java.io.IOException;
+
 import javafx.scene.Camera;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.input.KeyEvent;
@@ -86,6 +88,12 @@ public class CameraHandler {
             case DOWN:
                 rotX -= ROTATION_AMOUNT;
                 break;
+            case ESCAPE:
+                try {
+                    StartPage.setSettingsScene("settingsMenu", false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             default:
                 break;
         }
