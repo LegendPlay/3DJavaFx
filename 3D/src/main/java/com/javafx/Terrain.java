@@ -6,7 +6,8 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
 public class Terrain {
-    // TODO Define Key 
+    // TODO Define Key and dynamically generate terrain depending on camera position
+    // TODO (save terrain data from previous frame)
 
     MeshView generateTerrain(int seed, CameraHandler camera) {
         int minX = (int) camera.getCameraTranslateX() - 2000;
