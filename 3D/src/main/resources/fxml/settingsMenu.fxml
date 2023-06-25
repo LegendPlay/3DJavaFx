@@ -2,27 +2,24 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="saveButton" layoutX="700.0" layoutY="583.0" mnemonicParsing="false" text="save" />
-      <ChoiceBox layoutX="645.0" layoutY="306.0" prefWidth="150.0" />
-      <Label layoutX="634.0" layoutY="92.0" text="Settings">
+      <Button fx:id="resetButton" layoutX="665.0" layoutY="595.0" mnemonicParsing="false" text="Reset to default" />
+      <Label layoutX="634.0" layoutY="39.0" text="Settings">
          <font>
             <Font size="48.0" />
          </font>
       </Label>
-      <CheckBox layoutX="697.0" layoutY="375.0" mnemonicParsing="false" text="Test" />
-      <CheckBox layoutX="698.0" layoutY="400.0" mnemonicParsing="false" text="Test" />
-      <Separator layoutX="507.0" layoutY="355.0" prefHeight="1.0" prefWidth="425.0" />
+      <Separator layoutX="712.0" layoutY="126.0" orientation="VERTICAL" prefHeight="405.0" prefWidth="6.0" />
       <Pane fx:id="homeIcon" layoutX="14.0" layoutY="83.0" onMouseClicked="#goToStartMenu" prefHeight="43.0" prefWidth="46.0">
          <children>
             <SVGPath content="M27 18.039L16 9.501 5 18.039V14.56l11-8.54 11 8.538v3.481zm-2.75-.31v8.251h-5.5v-5.5h-5.5v5.5h-5.5v-8.25L16 11.543l8.25 6.186z" layoutX="7.0" layoutY="4.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" />
@@ -39,5 +36,78 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Pane>
+      <Label layoutX="805.0" layoutY="126.0" text=" Key Bindings">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <VBox fx:id="keyBindingsVBox" layoutX="897.0" layoutY="185.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+         <children>
+            <TextField id="Key-FlyForward" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-TurnLeft" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-TurnRight" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-FlyUp" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-FlyDown" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-RotateLeft" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-RotateRight" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-RotateUp" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-RotateDown" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-SettingsMenu" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+         </children>
+      </VBox>
+      <VBox layoutX="764.0" layoutY="185.0" prefHeight="331.0" prefWidth="124.0" spacing="3.0">
+         <children>
+            <Label text="Fly forward">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Turn left">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Turn right">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Fly up">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Fly down">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Rotate left">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Rotate right">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Rotate up">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Rotate down">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Settings Menu">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

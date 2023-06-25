@@ -18,7 +18,16 @@ public class SettingsHandler {
                 reader.close();
             } else {
                 // set default settings
-                // e.g. properties.setProperty("sound", "true");
+                properties.setProperty("Key-RotateLeft", "LEFT");
+                properties.setProperty("Key-RotateUp", "UP");
+                properties.setProperty("Key-FlyForward", "W");
+                properties.setProperty("Key-RotateDown", "Down");
+                properties.setProperty("Key-FlyDown", "C");
+                properties.setProperty("Key-TurnLeft", "A");
+                properties.setProperty("Key-TurnRight", "D");
+                properties.setProperty("Key-SettingsMenu", "ESCAPE");
+                properties.setProperty("Key-FlyUp", "SPACE");
+                properties.setProperty("Key-RotateRight", "RIGHT");
 
                 saveSettings();
             }
