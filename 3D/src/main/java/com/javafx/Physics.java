@@ -47,6 +47,11 @@ public class Physics {
         angle += angle < 0 ? 360 : angle > 360 ? (-360) : 0;
     }
 
+    public void turnUp(double angle) {// turns plane up/down
+        angleDownwards += angle;
+        angleDownwards += angleDownwards < 0 ? 360 : angleDownwards > 360 ? (-360) : 0;
+    }
+
     public double turn(double angle, double time) {// changes angle and simulates resulting rotation, speed changes...
         // returns bank angle of plane
         // only for fast, approximated results
