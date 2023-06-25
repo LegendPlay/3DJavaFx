@@ -1,6 +1,10 @@
 package com.javafx;
 
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Properties;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +22,9 @@ public class StartPage extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("startMenu"), 1440, 800);
-
         StartPage.stage = stage;
+
+        scene = new Scene(loadFXML("startMenu"), 1440, 800);
 
         stage.setTitle("Flight Simulator");
         stage.setScene(scene);
@@ -43,9 +47,9 @@ public class StartPage extends Application {
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
-    
+
     // static void setRoot(String fxml) throws IOException {
-    //     scene.setRoot(loadFXML(fxml));
+    // scene.setRoot(loadFXML(fxml));
     // }
 
     private static Parent loadFXML(String fxml) throws IOException {
