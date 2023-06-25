@@ -69,7 +69,7 @@ public class CameraHandler {
             case SPACE:
                 cameraTranslateY -= TRANSLATION_AMOUNT;
                 break;
-            case SHIFT:
+            case C:
                 cameraTranslateY += TRANSLATION_AMOUNT;
                 break;
             case LEFT:
