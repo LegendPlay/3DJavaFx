@@ -1,7 +1,5 @@
 package com.javafx;
 
-import java.io.IOException;
-
 import javafx.scene.Camera;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.input.KeyEvent;
@@ -44,15 +42,15 @@ public class CameraHandler {
     public void handleKeyPress(KeyEvent event) {
         switch (event.getCode()) {
             case A:
-                deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle()-90) % 360);
-                deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle()-90) % 360);
+                deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
+                deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
                 cameraTranslateX += deltaX;
                 cameraTranslateZ += deltaZ;
-            
+
                 break;
             case D:
-                deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle()+90) % 360);
-                deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle()+90) % 360);
+                deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
+                deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
                 cameraTranslateX += deltaX;
                 cameraTranslateZ += deltaZ;
                 break;
@@ -71,7 +69,7 @@ public class CameraHandler {
             case SPACE:
                 cameraTranslateY -= TRANSLATION_AMOUNT;
                 break;
-            case SHIFT:
+            case C:
                 cameraTranslateY += TRANSLATION_AMOUNT;
                 break;
             case LEFT:
@@ -89,18 +87,18 @@ public class CameraHandler {
             default:
                 break;
         }
-
-        
     }
+
     public void handleAnimationTick() {
         camera.setTranslateX(cameraTranslateX);
         camera.setTranslateZ(cameraTranslateZ);
-        camera.setTranslateY(cameraTranslateY); 
+        camera.setTranslateY(cameraTranslateY);
     }
 
     public double getCameraTranslateX() {
         return cameraTranslateX;
     }
+
     public double getCameraTranslateY() {
         return cameraTranslateY;
     }
