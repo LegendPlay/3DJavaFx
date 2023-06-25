@@ -35,7 +35,7 @@ public class FlightSimulatorGame {
 
         // main game ticks
 
-        int tickRateFPS = 60;
+        int tickRateFPS = 10;
         long tickDuration = (long) (1e9 / tickRateFPS); // tick rate to nanoseconds
         
         AnimationTimer animationTimer = new AnimationTimer() {

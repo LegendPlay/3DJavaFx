@@ -76,7 +76,7 @@ public class CameraHandler {
     }
 
     public void handleAnimationTick(long timeBetweenTickInNano) {
-/*         altitude = camera.getTranslateY();
+        altitude = camera.getTranslateY();
         double timeInSec = timeBetweenTickInNano * 1E-9;
 
         if (accelerate) {
@@ -97,7 +97,7 @@ public class CameraHandler {
 
         camera.setTranslateX(physics.getDeltaX(timeInSec));
         camera.setTranslateZ(physics.getDeltaZ(timeInSec));
-        camera.setTranslateY(physics.getDeltaY(timeInSec)); */
+        camera.setTranslateY(physics.getDeltaY(timeInSec));
         cameraRotationY.setAngle(physics.getAngle());
         cameraRotationX.setAngle(physics.getAngleDown());
     }

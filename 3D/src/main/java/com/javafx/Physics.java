@@ -43,13 +43,13 @@ public class Physics {
 
     public void turn(double angle) {// changes angle
         this.angle += angle;
-        // keep the angle between 0 and 360 degrees (for convenience)
-        angle += angle < 0 ? 360 : angle > 360 ? (-360) : 0;
+        // keep the angle between -1800 and 180 degrees (for convenience)
+        angle += angle < -180 ? 360 : angle > 180 ? (-360) : 0;
     }
 
     public void turnUp(double angle) {// turns plane up/down
         angleDownwards += angle;
-        angleDownwards += angleDownwards < 0 ? 360 : angleDownwards > 360 ? (-360) : 0;
+        angleDownwards += angleDownwards < -180 ? 360 : angleDownwards > 180 ? (-360) : 0;
     }
 
     public double turn(double angle, double time) {// changes angle and simulates resulting rotation, speed changes...
