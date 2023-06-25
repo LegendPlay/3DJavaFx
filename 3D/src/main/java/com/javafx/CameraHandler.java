@@ -18,7 +18,7 @@ public class CameraHandler {
     private double deltaX;
     private double deltaZ;
     private double rotY;
-    private double rotX;
+    private double rotX = 180;
 
     public Camera setupCamera() {
         camera = new PerspectiveCamera(true);
