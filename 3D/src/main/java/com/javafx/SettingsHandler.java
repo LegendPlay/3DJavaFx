@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class SettingsHandler {
     private static Properties properties = new Properties();
-    private static final File SETTINGS_FILE = new File("./target/userSettings.properties");
+    private static final File SETTINGS_FILE = new File("3D/target/userSettings.properties");
 
     public static void readSettings() {
         try {
