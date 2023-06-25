@@ -22,7 +22,7 @@ public class Physics {
     private static final int MASS = 396893;
     private static final byte TURN_PER_SECOND = 3;
     private double velocity = 0;
-    private double angleDownwards = 0;
+    private double angleDownwards = 180;
     private double angle;
     private boolean crashed = false; // true if plane crashed
 

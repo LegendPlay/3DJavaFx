@@ -43,6 +43,8 @@ public class CameraHandler {
         cameraTranslateY = 10;
         cameraTranslateZ = 0;
 
+        cameraRotationX.setAngle(180);
+
         camera.setTranslateX(cameraTranslateX);
         camera.setTranslateY(cameraTranslateY);
         camera.setTranslateZ(cameraTranslateZ);
