@@ -37,6 +37,11 @@ public class SettingsController implements Initializable {
     }
 
     @FXML
+    private void exitGame() {
+        StartPage.closeStage();
+    }
+
+    @FXML
     private void onKeyPressed(KeyEvent event) {
         String newKey = event.getCode().toString();
         TextField sourceTextField = (TextField) event.getSource();
