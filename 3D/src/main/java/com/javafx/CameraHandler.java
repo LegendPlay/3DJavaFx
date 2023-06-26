@@ -64,41 +64,8 @@ public class CameraHandler {
             physics.accelerate(1 / FlightSimulatorGame.tickRateFPS);
 
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-TurnLeft")))) {
-            /*
-             * double deltaX = TRANSLATION_AMOUNT *
-             * Math.sin(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
-             * double deltaZ = TRANSLATION_AMOUNT *
-             * Math.cos(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
-             * coordinateX += deltaX;
-             * coordinateZ += deltaZ;
-             */
             curve = -1;
-
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-TurnRight")))) {
-            /*
-             * double deltaX = TRANSLATION_AMOUNT *
-             * Math.sin(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
-             * double deltaZ = TRANSLATION_AMOUNT *
-             * Math.cos(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
-             * coordinateX += deltaX;
-             * coordinateZ += deltaZ;
-             */
-            // } else if
-            // (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-FlyUp"))))
-            // {
-            // cameraTranslateY += TRANSLATION_AMOUNT;
-            // } else if
-            // (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-FlyDown"))))
-            // {
-            // cameraTranslateY -= TRANSLATION_AMOUNT;
-            // } else if
-            // (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateLeft"))))
-            // {
-            // rotY += ROTATION_AMOUNT;
-            // } else if
-            // (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateRight"))))
-            // {
-            // rotY -= ROTATION_AMOUNT;
             curve = 1;
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-Decelerate")))) {
             physics.decelerate(1 / FlightSimulatorGame.tickRateFPS);
