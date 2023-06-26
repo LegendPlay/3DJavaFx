@@ -12,6 +12,7 @@ public class FlightSimulatorGame {
     // constants
     private static final int STAGE_WIDTH = 1440;
     private static final int STAGE_HEIGHT = 800;
+    public static int tickRateFPS = 60;
 
     public Scene startGame(int seed) {
         Group group = new Group();
@@ -34,7 +35,6 @@ public class FlightSimulatorGame {
 
         // main game ticks
 
-        int tickRateFPS = 60;
         long tickDuration = (long) (1e9 / tickRateFPS); // tick rate to nanoseconds
         
         AnimationTimer animationTimer = new AnimationTimer() {

@@ -53,23 +53,36 @@ public class CameraHandler {
 
     public void handleKeyPress(KeyEvent event) {
         if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-FlyForward")))) {
-            double deltaX = TRANSLATION_AMOUNT *
-                    Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
-            double deltaZ = TRANSLATION_AMOUNT *
-                    Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
-            coordinateX -= deltaX;
-            coordinateZ -= deltaZ;
+            /*
+             * double deltaX = TRANSLATION_AMOUNT *
+             * Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
+             * double deltaZ = TRANSLATION_AMOUNT *
+             * Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
+             * coordinateX -= deltaX;
+             * coordinateZ -= deltaZ;
+             */
+            physics.accelerate(1 / FlightSimulatorGame.tickRateFPS);
 
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-TurnLeft")))) {
-            double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
-            double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
-            coordinateX += deltaX;
-            coordinateZ += deltaZ;
+            /*
+             * double deltaX = TRANSLATION_AMOUNT *
+             * Math.sin(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
+             * double deltaZ = TRANSLATION_AMOUNT *
+             * Math.cos(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
+             * coordinateX += deltaX;
+             * coordinateZ += deltaZ;
+             */
+            curve = -1;
+
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-TurnRight")))) {
-            double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
-            double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
-            coordinateX += deltaX;
-            coordinateZ += deltaZ;
+            /*
+             * double deltaX = TRANSLATION_AMOUNT *
+             * Math.sin(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
+             * double deltaZ = TRANSLATION_AMOUNT *
+             * Math.cos(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
+             * coordinateX += deltaX;
+             * coordinateZ += deltaZ;
+             */
             // } else if
             // (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-FlyUp"))))
             // {
@@ -86,14 +99,15 @@ public class CameraHandler {
             // (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateRight"))))
             // {
             // rotY -= ROTATION_AMOUNT;
-            // } else if
-            // (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-Decelerate"))))
-            // {
-            // decelerate = true;
+            curve = 1;
+        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-Decelerate")))) {
+            physics.decelerate(1 / FlightSimulatorGame.tickRateFPS);
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateDown")))) {
-            rotX -= ROTATION_AMOUNT;
+            // rotX -= ROTATION_AMOUNT;
+            physics.turnUp(-ROTATION_AMOUNT);
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateUp")))) {
-            rotX += ROTATION_AMOUNT;
+            // rotX += ROTATION_AMOUNT;
+            physics.turnUp(ROTATION_AMOUNT);
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-SettingsMenu")))) {
             try {
                 StartPage.setSettingsScene("settingsMenu", false);
@@ -105,11 +119,25 @@ public class CameraHandler {
     }
 
     public void handleAnimationTick(long timeBetweenTickInNano) {
-        camera.setTranslateX(coordinateX);
-        camera.setTranslateZ(coordinateZ);
-        camera.setTranslateY(altitude);
-        cameraRotationY.setAngle(rotY);
-        cameraRotationX.setAngle(rotX);
+        /*
+         * camera.setTranslateX(coordinateX);
+         * camera.setTranslateZ(coordinateZ);
+         * camera.setTranslateY(altitude);
+         * cameraRotationY.setAngle(rotY);
+         * cameraRotationX.setAngle(rotX);
+         */
+        if (curve != 0) {
+            cameraRotationZ.setAngle(physics.flyCurve(1 / FlightSimulatorGame.tickRateFPS, altitude, curve));
+            curve = 0;
+        } else {
+            cameraRotationZ.setAngle(0);
+            physics.sleep(1 / FlightSimulatorGame.tickRateFPS, altitude);
+        }
+        camera.setTranslateX(camera.getTranslateX() + physics.getDeltaX(1 / FlightSimulatorGame.tickRateFPS));
+        camera.setTranslateZ(camera.getTranslateZ() + physics.getDeltaZ(1 / FlightSimulatorGame.tickRateFPS));
+        camera.setTranslateY(camera.getTranslateY() + physics.getDeltaY(1 / FlightSimulatorGame.tickRateFPS));
+        cameraRotationY.setAngle(physics.getAngle());
+        cameraRotationX.setAngle(physics.getAngleDown());
     }
 
     /*
