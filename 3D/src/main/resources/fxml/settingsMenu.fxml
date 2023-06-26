@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onPressedAnchorPane" prefHeight="800.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="resetButton" focusTraversable="false" layoutX="838.0" layoutY="516.0" mnemonicParsing="false" onAction="#resetDefaultKeyBindings" text="Reset to default" />
       <Label layoutX="634.0" layoutY="39.0" text="Settings">
@@ -43,16 +43,46 @@
       </Label>
       <VBox fx:id="keyBindingsVBox" layoutX="897.0" layoutY="185.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
          <children>
-            <TextField id="Key-FlyForward" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-TurnLeft" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-TurnRight" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-FlyUp" disable="true" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-FlyDown" disable="true" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-RotateLeft" disable="true" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-RotateRight" disable="true" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-RotateUp" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-RotateDown" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-SettingsMenu" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-FlyForward" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></TextField>
+            <TextField id="Key-TurnLeft" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></TextField>
+            <TextField id="Key-TurnRight" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></TextField>
+            <TextField id="Key-FlyUp" disable="true" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></TextField>
+            <TextField id="Key-FlyDown" disable="true" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></TextField>
+            <TextField id="Key-RotateLeft" disable="true" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></TextField>
+            <TextField id="Key-RotateRight" disable="true" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></TextField>
+            <TextField id="Key-RotateUp" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></TextField>
+            <TextField id="Key-RotateDown" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></TextField>
+            <TextField id="Key-SettingsMenu" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></TextField>
          </children>
       </VBox>
       <VBox layoutX="764.0" layoutY="185.0" prefHeight="331.0" prefWidth="124.0" spacing="3.0">
@@ -109,10 +139,23 @@
             </Label>
          </children>
       </VBox>
-      <Button fx:id="exitGameButton" defaultButton="true" layoutX="643.0" layoutY="624.0" mnemonicParsing="false" onAction="#exitGame" text="Exit Game">
+      <Button fx:id="exitGameButton" alignment="CENTER" defaultButton="true" layoutX="643.0" layoutY="624.0" mnemonicParsing="false" onAction="#exitGame" text="Exit Game">
          <font>
             <Font size="24.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
+      <Label layoutX="558.0" layoutY="126.0" text="Seed">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="seedTextField" alignment="CENTER" disable="true" editable="false" focusTraversable="false" layoutX="542.0" layoutY="165.0" prefHeight="26.0" prefWidth="83.0" promptText="Seed" text="10731">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>
