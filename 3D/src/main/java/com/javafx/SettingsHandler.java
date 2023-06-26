@@ -18,11 +18,21 @@ public class SettingsHandler {
                 reader.close();
             } else {
                 // set default settings
-                setDefaultKeyBindings();
+                createDefault();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void createDefault() {
+        setDefaultKeyBindings();
+        setDefaultSeed();
+    }
+
+    private static void setDefaultSeed() {
+        properties.setProperty("seed", "1");
+        saveSettings();
     }
 
     public static void setDefaultKeyBindings() {
