@@ -66,7 +66,7 @@ public class SettingsController implements Initializable {
             StartPage.setScene("startMenu");
         } else {
             FlightSimulatorGame game = new FlightSimulatorGame();
-            StartPage.setScene(game.startGame());
+            StartPage.setScene(game.startGame(Integer.valueOf(SettingsHandler.getProperty("seed"))));
         }
     }
 
