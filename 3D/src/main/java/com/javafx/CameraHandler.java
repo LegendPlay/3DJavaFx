@@ -82,9 +82,9 @@ public class CameraHandler {
         // } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-Decelerate")))) {
         //     decelerate = true;
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateDown")))) {
-            rotX += ROTATION_AMOUNT;
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateUp")))) {
             rotX -= ROTATION_AMOUNT;
+        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateUp")))) {
+            rotX += ROTATION_AMOUNT;
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-SettingsMenu")))) {
             try {
                 StartPage.setSettingsScene("settingsMenu", false);
