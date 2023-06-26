@@ -36,7 +36,8 @@ public class Physics {
             velocity -= calcDrag(altitude) * time / MASS;
             double velocityY = getVelocityY() + (GRAVITATIONAL_ACCELERATION - getLiftForce() / MASS) * time;
             velocity = Math.sqrt(Math.pow(getVelocityX(), 2) + Math.pow(getVelocityZ(), 2) + Math.pow(velocityY, 2));
-            angleDownwards = Math.toDegrees(Math.acos(velocityY / velocity)) + 180;
+            angleDownwards = Math.toDegrees(Math.asin(velocityY / velocity)) + 180;
+            System.out.println(angleDownwards);
         }
     }
 
@@ -71,8 +72,6 @@ public class Physics {
     // acceleration and deceleration
     public void accelerate() {
         velocity += ACCELERATION * time;
-        System.out.println(velocity);
-        System.out.println(ACCELERATION * time);
     }
 
     public void decelerate() {
