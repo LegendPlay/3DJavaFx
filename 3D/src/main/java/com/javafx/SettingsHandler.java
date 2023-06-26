@@ -18,20 +18,22 @@ public class SettingsHandler {
                 reader.close();
             } else {
                 // set default settings
-                properties.setProperty("Key-RotateUp", "UP");
-                properties.setProperty("Key-FlyForward", "W");
-                properties.setProperty("Key-Decelerate", "S");
-                properties.setProperty("Key-RotateDown", "DOWN");
-                properties.setProperty("Key-TurnLeft", "A");
-                properties.setProperty("Key-TurnRight", "D");
-                properties.setProperty("Key-SettingsMenu", "ESCAPE");
-
-                saveSettings();
+                setDefaultKeyBindings();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public static void setDefaultKeyBindings() {
+        properties.setProperty("Key-RotateUp", "UP");
+        properties.setProperty("Key-FlyForward", "W");
+        properties.setProperty("Key-Decelerate", "S");
+        properties.setProperty("Key-RotateDown", "DOWN");
+        properties.setProperty("Key-TurnLeft", "A");
+        properties.setProperty("Key-TurnRight", "D");
+        properties.setProperty("Key-SettingsMenu", "ESCAPE");
+        saveSettings();
     }
 
     private static void saveSettings() {

@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="resetButton" layoutX="665.0" layoutY="595.0" mnemonicParsing="false" text="Reset to default" />
+      <Button fx:id="resetButton" focusTraversable="false" layoutX="838.0" layoutY="516.0" mnemonicParsing="false" onAction="#resetDefaultKeyBindings" text="Reset to default" />
       <Label layoutX="634.0" layoutY="39.0" text="Settings">
          <font>
             <Font size="48.0" />
@@ -43,16 +43,16 @@
       </Label>
       <VBox fx:id="keyBindingsVBox" layoutX="897.0" layoutY="185.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
          <children>
-            <TextField id="Key-FlyForward" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-TurnLeft" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-TurnRight" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-FlyUp" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-FlyDown" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-RotateLeft" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-RotateRight" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-RotateUp" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-RotateDown" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
-            <TextField id="Key-SettingsMenu" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-FlyForward" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-TurnLeft" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-TurnRight" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-FlyUp" disable="true" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-FlyDown" disable="true" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-RotateLeft" disable="true" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-RotateRight" disable="true" editable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-RotateUp" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-RotateDown" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
+            <TextField id="Key-SettingsMenu" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressed" onKeyReleased="#onKeyReleased" promptText="Press a key" />
          </children>
       </VBox>
       <VBox layoutX="764.0" layoutY="185.0" prefHeight="331.0" prefWidth="124.0" spacing="3.0">
@@ -109,5 +109,10 @@
             </Label>
          </children>
       </VBox>
+      <Button fx:id="exitGameButton" defaultButton="true" layoutX="643.0" layoutY="624.0" mnemonicParsing="false" onAction="#exitGame" text="Exit Game">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
