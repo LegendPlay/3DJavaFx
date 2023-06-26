@@ -61,14 +61,14 @@ public class CameraHandler {
              * coordinateX -= deltaX;
              * coordinateZ -= deltaZ;
              */
-            physics.accelerate(1 / FlightSimulatorGame.tickRateFPS);
+            physics.accelerate();
 
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-TurnLeft")))) {
             curve = -1;
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-TurnRight")))) {
             curve = 1;
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-Decelerate")))) {
-            physics.decelerate(1 / FlightSimulatorGame.tickRateFPS);
+            physics.decelerate();
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateDown")))) {
             // rotX -= ROTATION_AMOUNT;
             physics.turnUp(-ROTATION_AMOUNT);
@@ -94,15 +94,15 @@ public class CameraHandler {
          * cameraRotationX.setAngle(rotX);
          */
         if (curve != 0) {
-            cameraRotationZ.setAngle(physics.flyCurve(1 / FlightSimulatorGame.tickRateFPS, altitude, curve));
+            cameraRotationZ.setAngle(physics.flyCurve(altitude, curve));
             curve = 0;
         } else {
             cameraRotationZ.setAngle(0);
-            physics.sleep(1 / FlightSimulatorGame.tickRateFPS, altitude);
+            physics.sleep(altitude);
         }
-        camera.setTranslateX(camera.getTranslateX() + physics.getDeltaX(1 / FlightSimulatorGame.tickRateFPS));
-        camera.setTranslateZ(camera.getTranslateZ() + physics.getDeltaZ(1 / FlightSimulatorGame.tickRateFPS));
-        camera.setTranslateY(camera.getTranslateY() + physics.getDeltaY(1 / FlightSimulatorGame.tickRateFPS));
+        camera.setTranslateX(camera.getTranslateX() + physics.getDeltaX());
+        camera.setTranslateZ(camera.getTranslateZ() + physics.getDeltaZ());
+        camera.setTranslateY(camera.getTranslateY() + physics.getDeltaY());
         cameraRotationY.setAngle(physics.getAngle());
         cameraRotationX.setAngle(physics.getAngleDown());
     }
