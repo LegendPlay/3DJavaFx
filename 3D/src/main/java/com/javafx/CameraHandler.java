@@ -71,14 +71,16 @@ public class CameraHandler {
             double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
             cameraTranslateX += deltaX;
             cameraTranslateZ += deltaZ;
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-FlyUp")))) {
-            cameraTranslateY += TRANSLATION_AMOUNT;
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-FlyDown")))) {
-            cameraTranslateY -= TRANSLATION_AMOUNT;
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateLeft")))) {
-            rotY += ROTATION_AMOUNT;
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateRight")))) {
-            rotY -= ROTATION_AMOUNT;
+        // } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-FlyUp")))) {
+        //     cameraTranslateY += TRANSLATION_AMOUNT;
+        // } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-FlyDown")))) {
+        //     cameraTranslateY -= TRANSLATION_AMOUNT;
+        // } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateLeft")))) {
+        //     rotY += ROTATION_AMOUNT;
+        // } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateRight")))) {
+        //     rotY -= ROTATION_AMOUNT;
+        // } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-Decelerate")))) {
+        //     decelerate = true;
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateDown")))) {
             rotX += ROTATION_AMOUNT;
         } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateUp")))) {
