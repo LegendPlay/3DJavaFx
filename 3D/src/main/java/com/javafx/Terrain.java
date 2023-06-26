@@ -10,10 +10,10 @@ public class Terrain {
     // TODO (save terrain data from previous frame)
 
     MeshView generateTerrain(int seed, CameraHandler camera) {
-        int minX = (int) camera.getCameraTranslateX() - 2000;
-        int maxX = (int) camera.getCameraTranslateX() + 2000;
-        int minZ = (int) camera.getCameraTranslateY() - 2000;
-        int maxZ = (int) camera.getCameraTranslateY() + 2000;
+        int minX = (int) camera.getCoordinateX() - 2000;
+        int maxX = (int) camera.getCoordinateX() + 2000;
+        int minZ = (int) camera.getAltitude() - 2000;
+        int maxZ = (int) camera.getAltitude() + 2000;
 
         TriangleMesh mesh = new TriangleMesh();
         // generating triangles
