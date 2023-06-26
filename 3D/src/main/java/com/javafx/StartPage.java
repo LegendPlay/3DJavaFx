@@ -31,16 +31,20 @@ public class StartPage extends Application {
         stage.show();
     }
 
-    static void setScene(Scene scene) {
+    public static void closeStage() {
+        stage.close();
+    }
+
+    public static void setScene(Scene scene) {
         stage.setScene(scene);
     }
 
-    static void setScene(String fxml) throws IOException {
+    public static void setScene(String fxml) throws IOException {
         Scene scene = new Scene(loadFXML(fxml));
         stage.setScene(scene);
     }
 
-    static void setSettingsScene(String fxml, boolean cameFromStartMenu) throws IOException {
+    public static void setSettingsScene(String fxml, boolean cameFromStartMenu) throws IOException {
         FXMLLoader loader = new FXMLLoader(StartPage.class.getResource("/fxml/" + fxml + ".fxml"));
         loader.setController(new SettingsController(cameFromStartMenu));
         Scene scene = new Scene(loader.load());
