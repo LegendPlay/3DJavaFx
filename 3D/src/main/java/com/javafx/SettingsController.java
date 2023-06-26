@@ -31,6 +31,12 @@ public class SettingsController implements Initializable {
     }
 
     @FXML
+    private void resetDefaultKeyBindings() {
+        SettingsHandler.setDefaultKeyBindings();
+        getKeyBindingsFromSettings();
+    }
+
+    @FXML
     private void onKeyPressed(KeyEvent event) {
         String newKey = event.getCode().toString();
         TextField sourceTextField = (TextField) event.getSource();
@@ -89,6 +95,10 @@ public class SettingsController implements Initializable {
         listOfKeys.add("Key-SettingsMenu");
 
         keyBindingFields = new ArrayList<>();
+        getKeyBindingsFromSettings();
+    }
+
+    private void getKeyBindingsFromSettings() {
         int i = 0;
         for (Node node : keyBindingsVBox.getChildren()) {
             if (node instanceof TextField) {
