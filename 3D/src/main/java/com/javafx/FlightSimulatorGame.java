@@ -1,6 +1,5 @@
 package com.javafx;
 
-import java.util.*;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -14,7 +13,7 @@ public class FlightSimulatorGame {
     private static final int STAGE_WIDTH = 1440;
     private static final int STAGE_HEIGHT = 800;
 
-    public Scene startGame() {
+    public Scene startGame(int seed) {
         Group group = new Group();
         Scene scene = new Scene(group, STAGE_WIDTH, STAGE_HEIGHT, true);
 
@@ -27,7 +26,7 @@ public class FlightSimulatorGame {
 
         // terrain
         Terrain terrain = new Terrain();
-        MeshView mesh = terrain.generateTerrain(new Random().nextInt(10000), cameraHandler);
+        MeshView mesh = terrain.generateTerrain(seed, cameraHandler);
         group.getChildren().add(mesh);
 
         // manage user input

@@ -21,6 +21,9 @@ public class SettingsController implements Initializable {
     private List<String> listOfKeys;
 
     @FXML
+    private TextField seedTextField;
+
+    @FXML
     private VBox keyBindingsVBox;
 
     @FXML
@@ -42,7 +45,12 @@ public class SettingsController implements Initializable {
     }
 
     @FXML
-    private void onKeyPressed(KeyEvent event) {
+    private void onPressedAnchorPane() {
+        anchorPane.requestFocus();
+    }
+
+    @FXML
+    private void onKeyPressedKeyBinding(KeyEvent event) {
         String newKey = event.getCode().toString();
         TextField sourceTextField = (TextField) event.getSource();
         sourceTextField.setText(newKey);
@@ -51,7 +59,7 @@ public class SettingsController implements Initializable {
     }
 
     @FXML
-    private void onKeyReleased() {
+    private void onKeyReleasedKeyBinding() {
         anchorPane.requestFocus();
     }
 
@@ -66,7 +74,7 @@ public class SettingsController implements Initializable {
             StartPage.setScene("startMenu");
         } else {
             FlightSimulatorGame game = new FlightSimulatorGame();
-            StartPage.setScene(game.startGame());
+            StartPage.setScene(game.startGame(Integer.valueOf(SettingsHandler.getProperty("seed"))));
         }
     }
 
@@ -86,6 +94,8 @@ public class SettingsController implements Initializable {
                 }
             }
         });
+
+        seedTextField.setText(SettingsHandler.getProperty("seed"));
 
         listOfKeys = new ArrayList<>();
         listOfKeys.add("Key-FlyForward");
