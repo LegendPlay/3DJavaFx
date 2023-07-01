@@ -6,14 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
 
 public class SettingsHandler {
-    private static Properties properties = new Properties();
     private static final String DB_URL = "jdbc:sqlite:3D/target/user_data.db";
     private static final String TABLE_NAME = "user_settings";
 
-    public static void readSettings() {
+    public static void initializeDatabase() {
         // create connection and create tables
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
@@ -34,6 +32,7 @@ public class SettingsHandler {
             statement.executeUpdate(sqlCreateUserSettingsTable);
             statement.executeUpdate(sqlCreateKeyBindingsTable);
 
+            // check if all columns are there
             String sqlCheckUserSettings = "SELECT COUNT(*) FROM user_settings";
             ResultSet resultSet = statement.executeQuery(sqlCheckUserSettings);
             int userSettingsRowCount = 0;
@@ -57,116 +56,133 @@ public class SettingsHandler {
             resultSet.close();
 
             // if key_bindings table empty, insert default key bindings
-            if (keyBindingsRowCount == 0) {
-                setDefaultKeyBindings(connection);
+            if (keyBindingsRowCount < 4) {
+                insertDefaultKeyBindings(connection);
             }
 
             connection.close();
             statement.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
         }
     }
 
-    private static void setDefaultKeyBindings(Connection connection) {
+    public static void setDefaultKeyBindings() {
         try {
-            String sqlInsertDefaultKeyBinding = "INSERT INTO key_bindings (setting_id, binding_key, binding_value) VALUES (?, ?, ?)";
+            Connection connection = DriverManager.getConnection(DB_URL);
+
+            String sqlSetDefault = "UPDATE key_bindings SET binding_key = ? , "
+                    + "binding_value = ?"
+                    + "WHERE binding_id = ?;";
+
+            String[][] propertiesList = {
+                    { "Key-RotateUp", "UP" },
+                    { "Key-FlyForward", "W" },
+                    { "Key-Decelerate", "S" },
+                    { "Key-RotateDown", "DOWN" },
+                    { "Key-TurnLeft", "A" },
+                    { "Key-TurnRight", "D" },
+                    { "Key-SettingsMenu", "ESCAPE" }
+            };
+
+            PreparedStatement pstmt = connection.prepareStatement(sqlSetDefault);
+
+            var i = 1;
+            for (String[] binding : propertiesList) {
+                pstmt.setString(1, binding[0]);
+                pstmt.setString(2, binding[1]);
+                pstmt.setInt(3, i);
+
+                pstmt.executeUpdate();
+                i++;
+            }
+            pstmt.close();
+            connection.close();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    private static void insertDefaultKeyBindings(Connection connection) {
+        try {
+            String sqlInsertDefaultKeyBinding = "INSERT INTO key_bindings (setting_id, binding_key, binding_value) VALUES (?, ?, ?);";
             PreparedStatement pstmt = connection.prepareStatement(sqlInsertDefaultKeyBinding);
             pstmt.setInt(1, 1);
-            
-            pstmt.setString(2, "Key-RotateUp");
-            pstmt.setString(3, "UP");
-            pstmt.executeUpdate();
 
-            pstmt.setString(2, "Key-FlyForward");
-            pstmt.setString(3, "W");
-            pstmt.executeUpdate();
+            String[][] propertiesList = {
+                    { "Key-RotateUp", "UP" },
+                    { "Key-FlyForward", "W" },
+                    { "Key-Decelerate", "S" },
+                    { "Key-RotateDown", "DOWN" },
+                    { "Key-TurnLeft", "A" },
+                    { "Key-TurnRight", "D" },
+                    { "Key-SettingsMenu", "ESCAPE" }
+            };
 
-            pstmt.setString(2, "Key-Decelerate");
-            pstmt.setString(3, "S");
-            pstmt.executeUpdate();
+            for (String[] binding : propertiesList) {
+                pstmt.setString(2, binding[0]);
+                pstmt.setString(3, binding[1]);
 
-            pstmt.setString(2, "Key-RotateDown");
-            pstmt.setString(3, "DOWN");
-            pstmt.executeUpdate();
-            
-            pstmt.setString(2, "Key-TurnLeft");
-            pstmt.setString(3, "A");
-            pstmt.executeUpdate();
+                pstmt.executeUpdate();
+            }
 
-            pstmt.setString(2, "Key-TurnRight");
-            pstmt.setString(3, "D");
-            pstmt.executeUpdate();
+            pstmt.close();
 
-            pstmt.setString(2, "Key-SettingsMenu");
-            pstmt.setString(3, "ESCAPE");
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    public static void updateKeyBindingValue(String bindingKey, String bindingValue) {
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+
+            String sqlUpdateKeyBindingValue = "UPDATE key_bindings "
+            + "SET binding_value = ? "
+            + "WHERE binding_Key = ? ;";
+
+            PreparedStatement pstmt = connection.prepareStatement(sqlUpdateKeyBindingValue);
+            pstmt.setString(1, bindingValue);
+            pstmt.setString(2, bindingKey);
+
             pstmt.executeUpdate();
 
             pstmt.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            connection.close();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
         }
     }
 
-    private static void createDefault() {
-        // setDefaultKeyBindings();
-        // setDefaultSeed();
-    }
+    public static String getKeyBindingValue(String bindingKey) {
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
 
-    // private static void setDefaultSeed() {
-    // properties.setProperty("seed", "1");
-    // saveSettings();
-    // }
+            String sqlGetKeyBinding = "SELECT binding_value "
+                    + "FROM key_bindings "
+                    + "WHERE binding_key = ? ;";
 
-    public static void setDefaultKeyBindings() {
-        properties.setProperty("Key-RotateUp", "UP");
-        properties.setProperty("Key-FlyForward", "W");
-        properties.setProperty("Key-Decelerate", "S");
-        properties.setProperty("Key-RotateDown", "DOWN");
-        properties.setProperty("Key-TurnLeft", "A");
-        properties.setProperty("Key-TurnRight", "D");
-        properties.setProperty("Key-SettingsMenu", "ESCAPE");
-        saveSettings();
-    }
+            PreparedStatement pstmt = connection.prepareStatement(sqlGetKeyBinding);
+            pstmt.setString(1, bindingKey);
 
-    // private static void saveSettings() {
-    // FileWriter writer;
-    // try {
-    // writer = new FileWriter(SETTINGS_FILE);
-    // properties.store(writer, "User Settings");
-    // writer.close();
-    // } catch (IOException e) {
-    // e.printStackTrace();
-    // }
-    // }
+            ResultSet result = pstmt.executeQuery();
 
-    private static void saveSettings() {
-        try (Connection connection = DriverManager.getConnection(DB_URL);
-                PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM " + TABLE_NAME);
-                PreparedStatement insertStatement = connection.prepareStatement(
-                        "INSERT INTO " + TABLE_NAME + " (setting_key, setting_value) VALUES (?, ?)")) {
-
-            deleteStatement.executeUpdate();
-
-            for (String key : properties.stringPropertyNames()) {
-                insertStatement.setString(1, key);
-                insertStatement.setString(2, properties.getProperty(key));
-                insertStatement.addBatch();
+            String bindingValue = "error"; // Default value in case no rows are found
+            if (result.next()) {
+                // Check if the result set has a row before accessing the value
+                bindingValue = result.getString("binding_value");
             }
 
-            insertStatement.executeBatch();
+            connection.close();
+            pstmt.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return bindingValue;
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+            return "error";
         }
-    }
-
-    public static void put(String key, String value) {
-        properties.setProperty(key, value);
-        saveSettings();
-    }
-
-    public static String getProperty(String key) {
-        return properties.getProperty(key);
     }
 }
