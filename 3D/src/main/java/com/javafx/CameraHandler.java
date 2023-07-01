@@ -26,6 +26,14 @@ public class CameraHandler {
     private double rotY;
     private double rotX = 180;
 
+    // key bindings
+    private String keyFlyForward = SettingsHandler.getKeyBindingValue("Key-FlyForward");
+    private String keyTurnLeft = SettingsHandler.getKeyBindingValue("Key-TurnLeft");
+    private String keyTurnRight = SettingsHandler.getKeyBindingValue("Key-TurnRight");
+    private String keyRotateDown = SettingsHandler.getKeyBindingValue("Key-RotateDown");
+    private String keyRotateUp = SettingsHandler.getKeyBindingValue("Key-RotateUp");
+    private String keySettingsMenu = SettingsHandler.getKeyBindingValue("Key-SettingsMenu");
+
     public Camera setupCamera() {
         camera = new PerspectiveCamera(true);
 
@@ -52,7 +60,7 @@ public class CameraHandler {
     }
 
     public void handleKeyPress(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-FlyForward")))) {
+        if (event.getCode().equals(KeyCode.valueOf(this.keyFlyForward))) {
             double deltaX = TRANSLATION_AMOUNT *
                     Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
             double deltaZ = TRANSLATION_AMOUNT *
@@ -60,41 +68,21 @@ public class CameraHandler {
             coordinateX -= deltaX;
             coordinateZ -= deltaZ;
 
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-TurnLeft")))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnLeft))) {
             double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
             double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
             coordinateX += deltaX;
             coordinateZ += deltaZ;
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-TurnRight")))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnRight))) {
             double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
             double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
             coordinateX += deltaX;
             coordinateZ += deltaZ;
-            // } else if
-            // (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-FlyUp"))))
-            // {
-            // cameraTranslateY += TRANSLATION_AMOUNT;
-            // } else if
-            // (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-FlyDown"))))
-            // {
-            // cameraTranslateY -= TRANSLATION_AMOUNT;
-            // } else if
-            // (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateLeft"))))
-            // {
-            // rotY += ROTATION_AMOUNT;
-            // } else if
-            // (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateRight"))))
-            // {
-            // rotY -= ROTATION_AMOUNT;
-            // } else if
-            // (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-Decelerate"))))
-            // {
-            // decelerate = true;
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateDown")))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateDown))) {
             rotX -= ROTATION_AMOUNT;
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateUp")))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateUp))) {
             rotX += ROTATION_AMOUNT;
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-SettingsMenu")))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keySettingsMenu))) {
             try {
                 StartPage.setSettingsScene("settingsMenu", false);
             } catch (IOException e) {

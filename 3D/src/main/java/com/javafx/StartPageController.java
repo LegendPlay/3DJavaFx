@@ -9,13 +9,18 @@ import javafx.scene.control.Button;
 public class StartPageController {
     private int randomSeed = new Random().nextInt(10000);
     @FXML
-    private Button startButton;
+    private Button newGameButton;
 
     @FXML
-    private void startGame() throws IOException {
+    private void goToSavedWorlds() {
+
+    }
+
+    @FXML
+    private void createNewWorld() throws IOException {
         FlightSimulatorGame game = new FlightSimulatorGame();
         StartPage.setScene(game.startGame(randomSeed));
-        SettingsHandler.put("seed", String.valueOf(randomSeed));
+        // SettingsHandler.put("seed", String.valueOf(randomSeed)); // TODO seed
     }
 
     @FXML

@@ -18,7 +18,18 @@ import javafx.scene.layout.VBox;
 public class SettingsController implements Initializable {
     private boolean cameFromStartMenu;
     private List<TextField> keyBindingFields;
-    private List<String> listOfKeys;
+    private String[] listOfKeys = {
+            "Key-FlyForward",
+            "Key-TurnLeft",
+            "Key-TurnRight",
+            "Key-FlyUp",
+            "Key-FlyDown",
+            "Key-RotateLeft",
+            "Key-RotateRight",
+            "Key-RotateUp",
+            "Key-RotateDown",
+            "Key-SettingsMenu"
+    };
 
     @FXML
     private TextField seedTextField;
@@ -55,7 +66,7 @@ public class SettingsController implements Initializable {
         TextField sourceTextField = (TextField) event.getSource();
         sourceTextField.setText(newKey);
 
-        SettingsHandler.put(sourceTextField.getId(), newKey);
+        SettingsHandler.updateKeyBindingValue(sourceTextField.getId(), newKey);
     }
 
     @FXML
@@ -74,7 +85,7 @@ public class SettingsController implements Initializable {
             StartPage.setScene("startMenu");
         } else {
             FlightSimulatorGame game = new FlightSimulatorGame();
-            StartPage.setScene(game.startGame(Integer.valueOf(SettingsHandler.getProperty("seed"))));
+            StartPage.setScene(game.startGame(2222)); // TODO seed
         }
     }
 
@@ -95,19 +106,7 @@ public class SettingsController implements Initializable {
             }
         });
 
-        seedTextField.setText(SettingsHandler.getProperty("seed"));
-
-        listOfKeys = new ArrayList<>();
-        listOfKeys.add("Key-FlyForward");
-        listOfKeys.add("Key-TurnLeft");
-        listOfKeys.add("Key-TurnRight");
-        listOfKeys.add("Key-FlyUp");
-        listOfKeys.add("Key-FlyDown");
-        listOfKeys.add("Key-RotateLeft");
-        listOfKeys.add("Key-RotateRight");
-        listOfKeys.add("Key-RotateUp");
-        listOfKeys.add("Key-RotateDown");
-        listOfKeys.add("Key-SettingsMenu");
+        // seedTextField.setText(SettingsHandler.getProperty("seed")); // TODO seed
 
         keyBindingFields = new ArrayList<>();
         getKeyBindingsFromSettings();
@@ -119,7 +118,7 @@ public class SettingsController implements Initializable {
             if (node instanceof TextField) {
                 // set saved values to the textfields
                 TextField textField = (TextField) node;
-                textField.setText(SettingsHandler.getProperty(listOfKeys.get(i)));
+                textField.setText(SettingsHandler.getKeyBindingValue(listOfKeys[i]));
                 keyBindingFields.add(textField);
                 i++;
             }
