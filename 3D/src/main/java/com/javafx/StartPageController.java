@@ -20,7 +20,7 @@ public class StartPageController {
     private void createNewWorld() throws IOException {
         FlightSimulatorGame game = new FlightSimulatorGame();
         StartPage.setScene(game.startGame(randomSeed));
-        SettingsHandler.put("seed", String.valueOf(randomSeed));
+        // SettingsHandler.put("seed", String.valueOf(randomSeed)); // TODO seed
     }
 
     @FXML

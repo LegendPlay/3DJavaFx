@@ -20,14 +20,13 @@ public class StartPage extends Application {
     public void start(Stage stage) throws IOException {
         StartPage.stage = stage;
 
-        // read user settings
-        SettingsHandler.readSettings();
+        SettingsHandler.initializeDatabase();
 
         scene = new Scene(loadFXML("startMenu"), 1440, 800);
 
         stage.setTitle("Flight Simulator");
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
