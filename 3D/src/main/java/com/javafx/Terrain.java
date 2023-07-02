@@ -1,24 +1,31 @@
 package com.javafx;
 
+import javafx.util.Pair;
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
 public class Terrain {
-    // TODO Define Key and dynamically generate terrain depending on camera position
-    // TODO (save terrain data from previous frame)
+    // save heightmap of previous frame (terrain)
+    Map<Pair<Float, Float>, Float> map = new HashMap<>();
 
     MeshView generateTerrain(int seed, CameraHandler camera) {
-        int minX = (int) camera.getCoordinateX() - 2000;
-        int maxX = (int) camera.getCoordinateX() + 2000;
-        int minZ = (int) camera.getAltitude() - 2000;
-        int maxZ = (int) camera.getAltitude() + 2000;
+        int minX = ((int) camera.getCoordinateX() - 2000) / 5 * 5;
+        int maxX = ((int) camera.getCoordinateX() + 2000) / 5 * 5;
+        int minZ = ((int) camera.getAltitude() - 2000) / 5 * 5;
+        int maxZ = ((int) camera.getAltitude() + 2000) / 5 * 5;
 
         TriangleMesh mesh = new TriangleMesh();
         // generating triangles
         for (float x = minX; x < maxX; x += 5) {
             for (float z = minZ; z < maxZ; z += 5) {
+                //temporarily store heightmap for current frame
+                Map<Pair<Integer, Integer>, String> maptemp = new HashMap<>();
+
                 // ytemp hoplds the y value calculated by the noise function
                 float ytemp = (1 * OpenSimplex2S.noise2(seed, 0.005 * x, 0.005 * z));
                 // add more variety to map
@@ -28,6 +35,8 @@ public class Terrain {
                 float y = (float) Math.pow(Math.abs(ytemp), 3);
                 y *= 200;
                 mesh.getPoints().addAll(x, y, z);
+
+                map.put(new Pair<Float,Float>(x, z), y);
             }
         }
         mesh.getTexCoords().addAll(0, 0);
