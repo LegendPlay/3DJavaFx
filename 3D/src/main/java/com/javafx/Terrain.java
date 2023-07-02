@@ -20,25 +20,34 @@ public class Terrain {
         int maxZ = ((int) camera.getAltitude() + 2000) / 5 * 5;
 
         TriangleMesh mesh = new TriangleMesh();
+
+        // temporarily store heightmap for current frame
+        Map<Pair<Float, Float>, Float> maptemp = new HashMap<>();
+
         // generating triangles
         for (float x = minX; x < maxX; x += 5) {
             for (float z = minZ; z < maxZ; z += 5) {
-                //temporarily store heightmap for current frame
-                Map<Pair<Integer, Integer>, String> maptemp = new HashMap<>();
+                Pair<Float,Float> key = new Pair<Float, Float>(x, z);
+                float y;
+                if (map.containsKey(key)) {
+                    //take y from old heightmap
+                    y = map.get(key);
+                } else {
+                    // ytemp hoplds the y value calculated by the noise function
+                    float ytemp = (1 * OpenSimplex2S.noise2(seed, 0.005 * x, 0.005 * z));
+                    // add more variety to map
+                    ytemp += (0.4 * OpenSimplex2S.noise2(seed, 0.01 * x, 0.01 * z));
+                    ytemp += (0.2 * OpenSimplex2S.noise2(seed, 0.02 * x, 0.02 * z));
+                    ytemp /= 1.6;
+                    y = (float) Math.pow(Math.abs(ytemp), 3);
+                    y *= 200;
+                    mesh.getPoints().addAll(x, y, z);
+                }
 
-                // ytemp hoplds the y value calculated by the noise function
-                float ytemp = (1 * OpenSimplex2S.noise2(seed, 0.005 * x, 0.005 * z));
-                // add more variety to map
-                ytemp += (0.4 * OpenSimplex2S.noise2(seed, 0.01 * x, 0.01 * z));
-                ytemp += (0.2 * OpenSimplex2S.noise2(seed, 0.02 * x, 0.02 * z));
-                ytemp /= 1.6;
-                float y = (float) Math.pow(Math.abs(ytemp), 3);
-                y *= 200;
-                mesh.getPoints().addAll(x, y, z);
-
-                map.put(new Pair<Float,Float>(x, z), y);
+                maptemp.put(new Pair<Float, Float>(x, z), y);
             }
         }
+        map = maptemp;
         mesh.getTexCoords().addAll(0, 0);
         addFaces(mesh);
         MeshView finishView = generateGroup(mesh);
