@@ -73,27 +73,19 @@ public class CameraHandler {
 
     public void handleKeyPress(KeyEvent event) {
         if (event.getCode().equals(KeyCode.valueOf(this.keyFlyForward))) {
-            double deltaX = TRANSLATION_AMOUNT *
-                    Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
-            double deltaZ = TRANSLATION_AMOUNT *
-                    Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
-            coordinateX -= deltaX;
-            coordinateZ -= deltaZ;
-
+            physics.accelerate();
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnLeft))) {
-            double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
-            double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
-            coordinateX += deltaX;
-            coordinateZ += deltaZ;
+            curve = -1;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnRight))) {
-            double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
-            double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
-            coordinateX += deltaX;
-            coordinateZ += deltaZ;
+            curve = 1;
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyDecelerate))) {
+            physics.decelerate();
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateDown))) {
-            rotX -= ROTATION_AMOUNT;
+            // rotX -= ROTATION_AMOUNT;
+            physics.turnUp(-ROTATION_AMOUNT);
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateUp))) {
-            rotX += ROTATION_AMOUNT;
+            // rotX += ROTATION_AMOUNT;
+            physics.turnUp(ROTATION_AMOUNT);
         } else if (event.getCode().equals(KeyCode.valueOf(this.keySettingsMenu))) {
             try {
                 StartPage.setSettingsScene("settingsMenu", "flightSimulator", world_id);
@@ -108,78 +100,19 @@ public class CameraHandler {
     }
 
     public void handleAnimationTick(long timeBetweenTickInNano) {
-        camera.setTranslateX(coordinateX);
-        camera.setTranslateZ(coordinateZ);
-        camera.setTranslateY(altitude);
-        cameraRotationY.setAngle(rotY);
-        cameraRotationX.setAngle(rotX);
-        cameraRotationZ.setAngle(rotZ);
+        if (curve != 0) {
+            cameraRotationZ.setAngle(physics.flyCurve(altitude, curve));
+            curve = 0;
+        } else {
+            cameraRotationZ.setAngle(0);
+            physics.sleep(altitude);
+        }
+        camera.setTranslateX(camera.getTranslateX() + physics.getDeltaX());
+        camera.setTranslateZ(camera.getTranslateZ() + physics.getDeltaZ());
+        camera.setTranslateY(camera.getTranslateY() + physics.getDeltaY());
+        cameraRotationY.setAngle(physics.getAngle());
+        cameraRotationX.setAngle(physics.getAngleDown());
     }
-
-    /*
-     * public void handleKeyPress(KeyEvent event) {
-     * if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty(
-     * "Key-FlyForward")))) {
-     * accelerate = true;
-     * } else if
-     * (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty(
-     * "Key-Decelerate")))) {
-     * decelerate = true;
-     * } else if
-     * (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty(
-     * "Key-TurnLeft")))) {
-     * curve = -1;
-     * } else if
-     * (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty(
-     * "Key-TurnRight")))) {
-     * curve = 1;
-     * } else if
-     * (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty(
-     * "Key-RotateDown")))) {
-     * physics.turnUp(-ROTATION_AMOUNT);
-     * } else if
-     * (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty(
-     * "Key-RotateUp")))) {
-     * physics.turnUp(ROTATION_AMOUNT);
-     * } else if
-     * (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty(
-     * "Key-SettingsMenu")))) {
-     * try {
-     * StartPage.setSettingsScene("settingsMenu", false);
-     * } catch (IOException e) {
-     * e.printStackTrace();
-     * }
-     * } else {
-     * }
-     * }
-     * 
-     * public void handleAnimationTick(long timeBetweenTickInNano) {
-     * altitude = camera.getTranslateY();
-     * double timeInSec = timeBetweenTickInNano * 1E-9;
-     * 
-     * if (accelerate) {
-     * physics.accelerate(timeInSec);
-     * accelerate = false;
-     * } else if (decelerate) {
-     * physics.decelerate(timeInSec);
-     * decelerate = false;
-     * }
-     * 
-     * if (curve != 0) {
-     * cameraRotationZ.setAngle(physics.flyCurve(timeInSec, altitude, curve));
-     * curve = 0;
-     * } else {
-     * cameraRotationZ.setAngle(0);
-     * physics.sleep(timeInSec, altitude);
-     * }
-     * 
-     * camera.setTranslateX(physics.getDeltaX(timeInSec));
-     * camera.setTranslateZ(physics.getDeltaZ(timeInSec));
-     * camera.setTranslateY(physics.getDeltaY(timeInSec));
-     * cameraRotationY.setAngle(physics.getAngle());
-     * cameraRotationX.setAngle(physics.getAngleDown());
-     * }
-     */
 
     public double getCoordinateX() {
         return this.coordinateX;
