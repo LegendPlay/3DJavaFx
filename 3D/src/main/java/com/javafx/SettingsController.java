@@ -9,6 +9,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -18,6 +20,7 @@ import javafx.scene.layout.VBox;
 
 public class SettingsController implements Initializable {
     private String cameFromMenu;
+    private int world_id;
     private List<TextField> keyBindingFields;
     private String[] listOfKeys = {
             "Key-FlyForward",
@@ -41,8 +44,24 @@ public class SettingsController implements Initializable {
     @FXML
     private Pane homeIcon;
 
-    public SettingsController(String cameFromMenu) {
+    @FXML
+    private TextField seedTextField;
+
+    @FXML
+    private TextField worldNameTextField;
+
+    @FXML
+    private Button saveWorldName;
+
+    @FXML
+    private Button saveAndExitButton;
+
+    @FXML
+    private Button saveGameButton;
+
+    public SettingsController(String cameFromMenu, int world_id) {
         this.cameFromMenu = cameFromMenu;
+        this.world_id = world_id;
     }
 
     @FXML
@@ -52,13 +71,31 @@ public class SettingsController implements Initializable {
     }
 
     @FXML
-    private void exitGame() {
-        StartPage.closeStage();
+    private void saveAndGoToStartMenu() {
+
+    }
+
+    @FXML
+    private void saveGame() {
+
     }
 
     @FXML
     private void onPressedAnchorPane() {
         anchorPane.requestFocus();
+    }
+
+    @FXML
+    private void saveWorldName() {
+        if (worldNameTextField.getText().isBlank()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Name");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter a valid name for this world");
+            alert.showAndWait();
+        } else {
+            SettingsHandler.saveGameDataWorldName(world_id, worldNameTextField.getText());
+        }
     }
 
     @FXML
@@ -87,8 +124,9 @@ public class SettingsController implements Initializable {
                 StartPage.setScene("startMenu");
                 break;
             case "flightSimulator":
-                FlightSimulatorGame game = new FlightSimulatorGame();
-                StartPage.setScene(game.startGame(2222)); // TODO seed
+                GameData gameData = SettingsHandler.readGameData(world_id);
+                FlightSimulatorGame game = new FlightSimulatorGame(gameData);
+                StartPage.setScene(game.startGame());
                 break;
             case "savedWorldsMenu":
                 StartPage.setScene("savedWorldsMenu");
@@ -121,20 +159,34 @@ public class SettingsController implements Initializable {
         switch (cameFromMenu) {
             case "startPage":
                 homeIcon.setVisible(false);
+                worldNameTextField.setDisable(true);
+                saveWorldName.setDisable(true);
+                saveAndExitButton.setDisable(true);
+                saveGameButton.setDisable(true);
                 break;
             case "flightSimulator":
                 homeIcon.setVisible(true);
                 break;
             case "savedWorldsMenu":
                 homeIcon.setVisible(true);
+                worldNameTextField.setDisable(true);
+                saveWorldName.setDisable(true);
+                saveAndExitButton.setDisable(true);
+                saveGameButton.setDisable(true);
                 break;
             case "createWorldMenu":
                 homeIcon.setVisible(true);
+                worldNameTextField.setDisable(true);
+                saveWorldName.setDisable(true);
+                saveAndExitButton.setDisable(true);
+                saveGameButton.setDisable(true);
             default:
                 break;
         }
 
-        // seedTextField.setText(SettingsHandler.getProperty("seed")); // TODO seed
+        GameData data = SettingsHandler.readGameData(world_id);
+        seedTextField.setText(String.valueOf(data.getSeed()));
+        worldNameTextField.setText(data.getWorldName());
 
         keyBindingFields = new ArrayList<>();
         getKeyBindingsFromSettings();
