@@ -34,13 +34,13 @@ public class Terrain {
                     y = map.get(key);
                 } else {
                     // ytemp hoplds the y value calculated by the noise function
-                    float ytemp = (1 * OpenSimplex2S.noise2(seed, 0.005 * x, 0.005 * z));
+                    float ytemp = (1 * OpenSimplex2S.noise2(seed, 0.0005 * x, 0.005 * z));
                     // add more variety to map
-                    ytemp += (0.4 * OpenSimplex2S.noise2(seed, 0.01 * x, 0.01 * z));
-                    ytemp += (0.2 * OpenSimplex2S.noise2(seed, 0.02 * x, 0.02 * z));
+                    ytemp += (0.4 * OpenSimplex2S.noise2(seed, 0.001 * x, 0.01 * z));
+                    ytemp += (0.2 * OpenSimplex2S.noise2(seed, 0.002 * x, 0.02 * z));
                     ytemp /= 1.6;
                     y = (float) Math.pow(Math.abs(ytemp), 3);
-                    y *= 200;
+                    y *= 2000;
                     mesh.getPoints().addAll(x, y, z);
                 }
 
