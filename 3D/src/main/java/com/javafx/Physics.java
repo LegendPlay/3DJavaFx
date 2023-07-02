@@ -21,6 +21,7 @@ public class Physics {
     private static final double ACCELERATION = 500;
     private static final int MASS = 396893;
     private static final byte TURN_PER_SECOND = 3;
+    private static final double time = 0.016666667;
     private double velocity = 0;
     private double angleDownwards = 180;
     private double angle;
@@ -30,12 +31,13 @@ public class Physics {
         this.angle = angle;
     }
 
-    public void sleep(double time, double altitude) {
+    public void sleep(double altitude) {
         if (velocity != 0) {
             velocity -= calcDrag(altitude) * time / MASS;
-            double velocityY = (GRAVITATIONAL_ACCELERATION - getLiftForce() / MASS) * time;
+            double velocityY = getVelocityY() + (GRAVITATIONAL_ACCELERATION - getLiftForce() / MASS) * time;
             velocity = Math.sqrt(Math.pow(getVelocityX(), 2) + Math.pow(getVelocityZ(), 2) + Math.pow(velocityY, 2));
-            angleDownwards = Math.toDegrees(Math.acos(velocityY / velocity));
+            angleDownwards = Math.toDegrees(Math.asin(velocityY / velocity)) + 180;
+            System.out.println(angleDownwards);
         }
     }
 
@@ -58,9 +60,9 @@ public class Physics {
         return angle / (360 * time) * 45;
     }
 
-    public double flyCurve(double time, double altitude, byte direction) {// direction -1: left, 1: right
+    public double flyCurve(double altitude, byte direction) {// direction -1: left, 1: right
         // returns bank angle of plane
-        sleep(time, altitude);
+        sleep(altitude);
         turn(direction * time * TURN_PER_SECOND);
         double bank_angle = (1.94384 * velocity / 10) + 7;
         crashed = bank_angle > MAX_BANK_ANGLE ? true : false;
@@ -68,24 +70,24 @@ public class Physics {
     }
 
     // acceleration and deceleration
-    public void accelerate(double time) {
+    public void accelerate() {
         velocity += ACCELERATION * time;
     }
 
-    public void decelerate(double time) {
+    public void decelerate() {
         velocity -= ACCELERATION * time;
     }
 
     // getters for distance
-    public double getDeltaX(double time) {
+    public double getDeltaX() {
         return time * getVelocityX();
     }
 
-    public double getDeltaZ(double time) {
+    public double getDeltaZ() {
         return time * getVelocityZ();
     }
 
-    public double getDeltaY(double time) {
+    public double getDeltaY() {
         return time * getVelocityY();
     }
 
