@@ -13,10 +13,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class SettingsController implements Initializable {
-    private boolean cameFromStartMenu;
+    private String cameFromMenu;
     private List<TextField> keyBindingFields;
     private String[] listOfKeys = {
             "Key-FlyForward",
@@ -32,16 +33,16 @@ public class SettingsController implements Initializable {
     };
 
     @FXML
-    private TextField seedTextField;
-
-    @FXML
     private VBox keyBindingsVBox;
 
     @FXML
     private AnchorPane anchorPane;
 
-    public SettingsController(boolean cameFromStartMenu) {
-        this.cameFromStartMenu = cameFromStartMenu;
+    @FXML
+    private Pane homeIcon;
+
+    public SettingsController(String cameFromMenu) {
+        this.cameFromMenu = cameFromMenu;
     }
 
     @FXML
@@ -81,11 +82,22 @@ public class SettingsController implements Initializable {
 
     @FXML
     private void goBackScene() throws IOException {
-        if (cameFromStartMenu) {
-            StartPage.setScene("startMenu");
-        } else {
-            FlightSimulatorGame game = new FlightSimulatorGame();
-            StartPage.setScene(game.startGame(2222)); // TODO seed
+        switch (cameFromMenu) {
+            case "startPage":
+                StartPage.setScene("startMenu");
+                break;
+            case "flightSimulator":
+                FlightSimulatorGame game = new FlightSimulatorGame();
+                StartPage.setScene(game.startGame(2222)); // TODO seed
+                break;
+            case "savedWorldsMenu":
+                StartPage.setScene("savedWorldsMenu");
+                break;
+            case "createWorldMenu":
+                StartPage.setScene("createWorldMenu");
+                break;
+            default:
+                break;
         }
     }
 
@@ -105,6 +117,22 @@ public class SettingsController implements Initializable {
                 }
             }
         });
+
+        switch (cameFromMenu) {
+            case "startPage":
+                homeIcon.setVisible(false);
+                break;
+            case "flightSimulator":
+                homeIcon.setVisible(true);
+                break;
+            case "savedWorldsMenu":
+                homeIcon.setVisible(true);
+                break;
+            case "createWorldMenu":
+                homeIcon.setVisible(true);
+            default:
+                break;
+        }
 
         // seedTextField.setText(SettingsHandler.getProperty("seed")); // TODO seed
 

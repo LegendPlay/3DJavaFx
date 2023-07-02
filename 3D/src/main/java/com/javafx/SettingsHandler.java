@@ -29,8 +29,25 @@ public class SettingsHandler {
                     + "FOREIGN KEY (setting_id) REFERENCES user_settings (setting_id)"
                     + ");";
 
+            String sqlCreateUserWorldsTable = "CREATE TABLE IF NOT EXISTS user_worlds ("
+                    + "world_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                    + "setting_id INTEGER NOT NULL,"
+                    + "world_name TEXT,"
+                    + "latest_save TEXT,"
+                    + "creation_time TEXT NOT NULL,"
+                    + "seed INTEGER NOT NULL,"
+                    + "position_x NUMERIC NOT NULL,"
+                    + "position_y NUMERIC NOT NULL,"
+                    + "position_z NUMERIC NOT NULL,"
+                    + "rotation_x NUMERIC NOT NULL,"
+                    + "rotation_y NUMERIC NOT NULL,"
+                    + "rotation_z NUMERIC NOT NULL,"
+                    + "FOREIGN KEY (setting_id) REFERENCES user_settings (setting_id)"
+                    + ");";
+
             statement.executeUpdate(sqlCreateUserSettingsTable);
             statement.executeUpdate(sqlCreateKeyBindingsTable);
+            statement.executeUpdate(sqlCreateUserWorldsTable);
 
             // check if all columns are there
             String sqlCheckUserSettings = "SELECT COUNT(*) FROM user_settings";
@@ -104,11 +121,77 @@ public class SettingsHandler {
         }
     }
 
+    public static void createGame(int seed, String worldName) {
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            String sqlCreateGame = "INSERT INTO user_worlds (setting_id, world_name, creation_time, seed, position_x, position_y, position_z, rotation_x, rotation_y, rotation_z) "
+                    + "VALUES (1, ?, DATETIME('now', 'localtime'), ?, 0, 20, 0, 180, 0, 0);";
+            PreparedStatement pstmt = connection.prepareStatement(sqlCreateGame);
+
+            pstmt.setString(1, worldName);
+            pstmt.setInt(2, seed);
+            pstmt.executeUpdate();
+
+            pstmt.close();
+            connection.close();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    public static void saveGameData(int worldId, double positionX, double positionY, double positionZ,
+            double rotationX, double rotationY, double rotationZ) {
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            String sqlSaveGameData = "UPDATE user_worlds "
+                    + "SET latest_save = DATETIME('now', 'localtime'), position_x = ?, position_y = ?, position_z = ?, "
+                    + "rotation_x = ?, rotation_y = ?, rotation_z = ? "
+                    + "WHERE world_id = ? ;";
+
+            PreparedStatement pstmt = connection.prepareStatement(sqlSaveGameData);
+            pstmt.setDouble(1, positionX);
+            pstmt.setDouble(2, positionY);
+            pstmt.setDouble(3, positionZ);
+            pstmt.setDouble(4, rotationX);
+            pstmt.setDouble(5, rotationY);
+            pstmt.setDouble(6, rotationZ);
+
+            pstmt.setInt(7, worldId);
+
+            pstmt.executeUpdate();
+
+            pstmt.close();
+            connection.close();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    public static ResultSet readGameData(int worldId) {
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            String sqlGetGameData = "SELECT * "
+                    + "FROM user_worlds "
+                    + "WHERE world_id = ? ;";
+
+            PreparedStatement pstmt = connection.prepareStatement(sqlGetGameData);
+            pstmt.setInt(1, worldId);
+
+            return pstmt.executeQuery();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+            return null;
+        }
+    }
+
     private static void insertDefaultKeyBindings(Connection connection) {
         try {
-            String sqlInsertDefaultKeyBinding = "INSERT INTO key_bindings (setting_id, binding_key, binding_value) VALUES (?, ?, ?);";
+            String sqlInsertDefaultKeyBinding = "INSERT INTO key_bindings (setting_id, binding_key, binding_value) "
+                    + "VALUES (1, ?, ?);";
             PreparedStatement pstmt = connection.prepareStatement(sqlInsertDefaultKeyBinding);
-            pstmt.setInt(1, 1);
 
             String[][] propertiesList = {
                     { "Key-RotateUp", "UP" },
@@ -121,8 +204,8 @@ public class SettingsHandler {
             };
 
             for (String[] binding : propertiesList) {
-                pstmt.setString(2, binding[0]);
-                pstmt.setString(3, binding[1]);
+                pstmt.setString(1, binding[0]);
+                pstmt.setString(2, binding[1]);
 
                 pstmt.executeUpdate();
             }
@@ -139,8 +222,8 @@ public class SettingsHandler {
             Connection connection = DriverManager.getConnection(DB_URL);
 
             String sqlUpdateKeyBindingValue = "UPDATE key_bindings "
-            + "SET binding_value = ? "
-            + "WHERE binding_Key = ? ;";
+                    + "SET binding_value = ? "
+                    + "WHERE binding_Key = ? ;";
 
             PreparedStatement pstmt = connection.prepareStatement(sqlUpdateKeyBindingValue);
             pstmt.setString(1, bindingValue);
