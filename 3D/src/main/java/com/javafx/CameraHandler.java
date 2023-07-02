@@ -9,7 +9,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.transform.Rotate;
 
 public class CameraHandler {
-    private static final double TRANSLATION_AMOUNT = 10.0;
     private static final double ROTATION_AMOUNT = 2.0;
 
     private Physics physics = new Physics(0);
