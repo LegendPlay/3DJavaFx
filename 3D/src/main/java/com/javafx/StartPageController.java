@@ -1,25 +1,28 @@
 package com.javafx;
 
 import java.io.IOException;
-import java.util.Random;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 
 public class StartPageController {
-    private int randomSeed = new Random().nextInt(10000);
-    @FXML
-    private Button startButton;
 
     @FXML
-    private void startGame() throws IOException {
-        FlightSimulatorGame game = new FlightSimulatorGame();
-        StartPage.setScene(game.startGame(randomSeed));
-        SettingsHandler.put("seed", String.valueOf(randomSeed));
+    private void goToSavedWorlds() throws IOException {
+        StartPage.setScene("savedWorldsMenu");
+    }
+
+    @FXML
+    private void quitGame() {
+        StartPage.closeStage();
+    }
+
+    @FXML
+    private void createNewWorld() throws IOException {
+        StartPage.setScene("createWorldMenu");
     }
 
     @FXML
     private void goToSettings() throws IOException {
-        StartPage.setSettingsScene("settingsMenu", true);
+        StartPage.setSettingsScene("settingsMenu", "startPage");
     }
 }

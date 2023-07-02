@@ -26,6 +26,14 @@ public class CameraHandler {
     private double rotY;
     private double rotX = 180;
 
+    // key bindings
+    private String keyFlyForward = SettingsHandler.getKeyBindingValue("Key-FlyForward");
+    private String keyTurnLeft = SettingsHandler.getKeyBindingValue("Key-TurnLeft");
+    private String keyTurnRight = SettingsHandler.getKeyBindingValue("Key-TurnRight");
+    private String keyRotateDown = SettingsHandler.getKeyBindingValue("Key-RotateDown");
+    private String keyRotateUp = SettingsHandler.getKeyBindingValue("Key-RotateUp");
+    private String keySettingsMenu = SettingsHandler.getKeyBindingValue("Key-SettingsMenu");
+
     public Camera setupCamera() {
         camera = new PerspectiveCamera(true);
 
@@ -52,23 +60,23 @@ public class CameraHandler {
     }
 
     public void handleKeyPress(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-FlyForward")))) {
+        if (event.getCode().equals(KeyCode.valueOf(this.keyFlyForward))) {
             physics.accelerate();
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-TurnLeft")))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnLeft))) {
             curve = -1;
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-TurnRight")))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnRight))) {
             curve = 1;
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-Decelerate")))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyDecelerate))) {
             physics.decelerate();
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateDown")))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateDown))) {
             // rotX -= ROTATION_AMOUNT;
             physics.turnUp(-ROTATION_AMOUNT);
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-RotateUp")))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateUp))) {
             // rotX += ROTATION_AMOUNT;
             physics.turnUp(ROTATION_AMOUNT);
-        } else if (event.getCode().equals(KeyCode.valueOf(SettingsHandler.getProperty("Key-SettingsMenu")))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keySettingsMenu))) {
             try {
-                StartPage.setSettingsScene("settingsMenu", false);
+                StartPage.setSettingsScene("settingsMenu", "flightSimulator");
             } catch (IOException e) {
                 e.printStackTrace();
             }
