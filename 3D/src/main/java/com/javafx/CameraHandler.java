@@ -20,11 +20,7 @@ public class CameraHandler {
     private double coordinateX;
     private double altitude;
     private double coordinateZ;
-    private boolean accelerate = false;
-    private boolean decelerate = false;
     private byte curve = 0;
-    private double rotY;
-    private double rotX = 180;
 
     // key bindings
     private String keyFlyForward = SettingsHandler.getKeyBindingValue("Key-FlyForward");
