@@ -10,7 +10,6 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.SavedWorldsController">
    <children>
       <ListView fx:id="listOfGames" layoutX="150.0" layoutY="100.0" prefHeight="650.0" prefWidth="800.0" />
@@ -19,9 +18,9 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <VBox layoutX="1060.0" layoutY="567.0" prefHeight="22.0" prefWidth="270.0" spacing="20.0">
+      <VBox layoutX="1060.0" layoutY="492.0" prefHeight="22.0" prefWidth="270.0" spacing="20.0">
          <children>
-            <Button fx:id="playButton" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="500.0" text="Play">
+            <Button fx:id="playWorldButton" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="500.0" text="Play">
                <font>
                   <Font size="18.0" />
                </font>
@@ -29,7 +28,15 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="editButton" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="500.0" text="Edit">
+            <Button fx:id="editWorldsButton" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="500.0" text="Edit">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="deleteWorldButton" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="500.0" text="Delete">
                <font>
                   <Font size="18.0" />
                </font>
@@ -39,7 +46,7 @@
             </Button>
          </children>
       </VBox>
-      <Label layoutX="1153.0" layoutY="500.0" text="Options">
+      <Label layoutX="1153.0" layoutY="425.0" text="Options">
          <font>
             <Font size="24.0" />
          </font>

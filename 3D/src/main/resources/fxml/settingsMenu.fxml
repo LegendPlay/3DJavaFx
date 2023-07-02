@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
@@ -13,16 +14,16 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onPressedAnchorPane" prefHeight="800.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="resetButton" focusTraversable="false" layoutX="838.0" layoutY="516.0" mnemonicParsing="false" onAction="#resetDefaultKeyBindings" text="Reset to default">
+      <Button fx:id="resetButton" focusTraversable="false" layoutX="839.0" layoutY="555.0" mnemonicParsing="false" onAction="#resetDefaultKeyBindings" text="Reset to default">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Label layoutX="634.0" layoutY="39.0" text="Settings">
+      <Label layoutX="627.0" layoutY="29.0" text="Settings">
          <font>
             <Font size="48.0" />
          </font>
       </Label>
-      <Separator layoutX="712.0" layoutY="126.0" orientation="VERTICAL" prefHeight="405.0" prefWidth="6.0" />
+      <Separator layoutX="713.0" layoutY="165.0" orientation="VERTICAL" prefHeight="405.0" prefWidth="6.0" />
       <Pane fx:id="homeIcon" layoutX="14.0" layoutY="83.0" onMouseClicked="#goToStartMenu" prefHeight="43.0" prefWidth="46.0">
          <children>
             <SVGPath content="M27 18.039L16 9.501 5 18.039V14.56l11-8.54 11 8.538v3.481zm-2.75-.31v8.251h-5.5v-5.5h-5.5v5.5h-5.5v-8.25L16 11.543l8.25 6.186z" layoutX="7.0" layoutY="4.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" />
@@ -39,12 +40,12 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Pane>
-      <Label layoutX="805.0" layoutY="126.0" text=" Key Bindings">
+      <Label layoutX="806.0" layoutY="165.0" text=" Key Bindings">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <VBox fx:id="keyBindingsVBox" layoutX="897.0" layoutY="185.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+      <VBox fx:id="keyBindingsVBox" layoutX="898.0" layoutY="224.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
          <children>
             <TextField id="Key-FlyForward" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
                <cursor>
@@ -88,7 +89,7 @@
                </cursor></TextField>
          </children>
       </VBox>
-      <VBox layoutX="764.0" layoutY="185.0" prefHeight="331.0" prefWidth="124.0" spacing="3.0">
+      <VBox layoutX="765.0" layoutY="224.0" prefHeight="331.0" prefWidth="124.0" spacing="3.0">
          <children>
             <Label text="Fly forward">
                <font>
@@ -142,23 +143,65 @@
             </Label>
          </children>
       </VBox>
-      <Button fx:id="exitGameButton" alignment="CENTER" defaultButton="true" layoutX="642.0" layoutY="622.0" mnemonicParsing="false" onAction="#exitGame" text="Quit Game">
-         <font>
-            <Font size="24.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Label layoutX="558.0" layoutY="126.0" text="Seed">
+      <HBox layoutX="513.0" layoutY="645.0" prefHeight="51.0" prefWidth="400.0" spacing="40.0">
+         <children>
+            <Button fx:id="saveAndExitButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#saveAndGoToStartMenu" prefWidth="180.0" text="Save and Exit">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="saveGameButton" defaultButton="true" mnemonicParsing="false" onAction="#saveGame" prefWidth="180.0" text="Save Game">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <Label layoutX="998.0" layoutY="105.0" text="Global Settings">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="seedTextField" alignment="CENTER" disable="true" editable="false" focusTraversable="false" layoutX="542.0" layoutY="165.0" prefHeight="26.0" prefWidth="83.0" promptText="Seed" text="10731">
+      <Label layoutX="317.0" layoutY="108.0" text="Current World Options">
          <font>
-            <Font size="18.0" />
+            <Font size="24.0" />
          </font>
-      </TextField>
+      </Label>
+      <VBox alignment="TOP_CENTER" layoutX="190.0" layoutY="169.0" prefHeight="62.0" prefWidth="268.0" spacing="5.0">
+         <children>
+            <Label text="World Name">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="worldNameTextField" alignment="CENTER" focusTraversable="false" promptText="World Name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <Button fx:id="saveWorldName" mnemonicParsing="false" onAction="#saveWorldName" text="Save">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="527.0" layoutY="169.0" prefHeight="26.0" prefWidth="100.0" spacing="5.0">
+         <children>
+            <Label text="Seed">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="seedTextField" alignment="CENTER" disable="true" editable="false" focusTraversable="false" prefHeight="26.0" prefWidth="83.0" promptText="Seed">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
