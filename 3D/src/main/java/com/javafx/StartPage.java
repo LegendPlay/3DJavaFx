@@ -75,9 +75,9 @@ public class StartPage extends Application {
         stage.setScene(scene);
     }
 
-    public static void setSettingsScene(String fxml, String cameFromMenu) throws IOException {
+    public static void setSettingsScene(String fxml, String cameFromMenu, int world_id) throws IOException {
         FXMLLoader loader = new FXMLLoader(StartPage.class.getResource("/fxml/" + fxml + ".fxml"));
-        loader.setController(new SettingsController(cameFromMenu));
+        loader.setController(new SettingsController(cameFromMenu, world_id));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }

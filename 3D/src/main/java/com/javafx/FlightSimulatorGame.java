@@ -14,13 +14,34 @@ public class FlightSimulatorGame {
     private static final int STAGE_HEIGHT = 800;
     public static int tickRateFPS = 60;
 
-    public Scene startGame(int seed) {
+    public static int world_id;
+    private int seed;
+    private double position_x;
+    private double position_y;
+    private double position_z;
+    private double rotation_x;
+    private double rotation_y;
+    private double rotation_z;
+
+    public FlightSimulatorGame(GameData gameData) {
+        FlightSimulatorGame.world_id = gameData.getWorldId();
+        this.seed = gameData.getSeed();
+        this.position_x = gameData.getPositionX();
+        this.position_y = gameData.getPositionY();
+        this.position_z = gameData.getPositionZ();
+        this.rotation_x = gameData.getRotationX();
+        this.rotation_y = gameData.getRotationY();
+        this.rotation_z = gameData.getRotationZ();
+    }
+
+    public Scene startGame() {
         Group group = new Group();
         Scene scene = new Scene(group, STAGE_WIDTH, STAGE_HEIGHT, true);
 
         // camera
-        CameraHandler cameraHandler = new CameraHandler();
-        Camera camera = cameraHandler.setupCamera();
+        CameraHandler cameraHandler = new CameraHandler(world_id);
+        Camera camera = cameraHandler.setupCamera(position_x, position_y, position_z, rotation_x, rotation_y,
+                rotation_z);
 
         scene.setCamera(camera);
         scene.setFill(Color.LIGHTBLUE);
@@ -36,7 +57,7 @@ public class FlightSimulatorGame {
         // main game ticks
 
         long tickDuration = (long) (1e9 / tickRateFPS); // tick rate to nanoseconds
-        
+
         AnimationTimer animationTimer = new AnimationTimer() {
             private long previousTime = 0;
 
@@ -48,10 +69,10 @@ public class FlightSimulatorGame {
                     if (deltaTime >= tickDuration) {
                         cameraHandler.handleAnimationTick(deltaTime);
                         previousTime = currentTime;
-                    }     
+                    }
                 } else {
                     previousTime = currentTime;
-                }                       
+                }
             }
         };
         animationTimer.start();

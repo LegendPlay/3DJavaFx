@@ -12,6 +12,9 @@ public class CameraHandler {
     private static final double TRANSLATION_AMOUNT = 10.0;
     private static final double ROTATION_AMOUNT = 2.0;
 
+    private double rotX = 180;
+    private double rotY = 0;
+    private double rotZ = 0;
     private Physics physics = new Physics(0);
     private Camera camera;
     private Rotate cameraRotationY;
@@ -23,8 +26,6 @@ public class CameraHandler {
     private boolean accelerate = false;
     private boolean decelerate = false;
     private byte curve = 0;
-    private double rotY;
-    private double rotX = 180;
 
     // key bindings
     private String keyFlyForward = SettingsHandler.getKeyBindingValue("Key-FlyForward");
@@ -34,23 +35,34 @@ public class CameraHandler {
     private String keyRotateUp = SettingsHandler.getKeyBindingValue("Key-RotateUp");
     private String keySettingsMenu = SettingsHandler.getKeyBindingValue("Key-SettingsMenu");
 
-    public Camera setupCamera() {
+    private int world_id;
+
+    public CameraHandler(int world_id) {
+        this.world_id = world_id;
+    }
+
+    public Camera setupCamera(double position_x, double position_y, double position_z, double rotation_x,
+            double rotation_y, double rotation_z) {
         camera = new PerspectiveCamera(true);
 
-        cameraRotationY = new Rotate(0, Rotate.Y_AXIS);
-        camera.getTransforms().add(cameraRotationY);
         cameraRotationX = new Rotate(0, Rotate.X_AXIS);
-        camera.getTransforms().add(cameraRotationX);
+        cameraRotationY = new Rotate(0, Rotate.Y_AXIS);
         cameraRotationZ = new Rotate(0, Rotate.Z_AXIS);
-        camera.getTransforms().add(cameraRotationZ);
+        camera.getTransforms().addAll(cameraRotationX, cameraRotationY, cameraRotationZ);
 
+        // render distance
         camera.setNearClip(10);
         camera.setFarClip(2000);
-        coordinateX = 0;
-        altitude = 20;
-        coordinateZ = 0;
 
-        cameraRotationX.setAngle(180);
+        // rotations
+        rotX = rotation_x;
+        rotY = rotation_y;
+        rotZ = rotation_z;
+
+        // positions
+        coordinateX = position_x;
+        altitude = position_y;
+        coordinateZ = position_z;
 
         camera.setTranslateX(coordinateX);
         camera.setTranslateY(altitude);
@@ -76,7 +88,10 @@ public class CameraHandler {
             physics.turnUp(ROTATION_AMOUNT);
         } else if (event.getCode().equals(KeyCode.valueOf(this.keySettingsMenu))) {
             try {
-                StartPage.setSettingsScene("settingsMenu", "flightSimulator");
+                StartPage.setSettingsScene("settingsMenu", "flightSimulator", world_id);
+
+                SettingsHandler.saveGameData(world_id, coordinateX, altitude, coordinateZ, rotX, rotY, rotZ);
+                System.out.println("Game saved!");
             } catch (IOException e) {
                 e.printStackTrace();
             }

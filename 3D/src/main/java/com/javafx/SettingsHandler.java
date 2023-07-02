@@ -169,7 +169,28 @@ public class SettingsHandler {
         }
     }
 
-    public static ResultSet readGameData(int worldId) {
+    public static void saveGameDataWorldName(int worldId, String worldName) {
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            String sqlSetWorldName = "UPDATE user_worlds "
+                    + "SET world_name = ? "
+                    + "WHERE world_id = ? ;";
+
+            PreparedStatement pstmt = connection.prepareStatement(sqlSetWorldName);
+            pstmt.setString(1, worldName);
+            pstmt.setInt(2, worldId);
+
+            pstmt.executeUpdate();
+
+            pstmt.close();
+            connection.close();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    public static GameData readGameData(int worldId) {
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
             String sqlGetGameData = "SELECT * "
@@ -178,12 +199,58 @@ public class SettingsHandler {
 
             PreparedStatement pstmt = connection.prepareStatement(sqlGetGameData);
             pstmt.setInt(1, worldId);
+            ResultSet result = pstmt.executeQuery();
 
-            return pstmt.executeQuery();
+            GameData gameData = new GameData();
+            while (result.next()) {
+                gameData.setWorldId(result.getInt("world_id"));
+                gameData.setSettingId(result.getInt("setting_id"));
+                gameData.setWorldName(result.getString("world_name"));
+                gameData.setLatestSave(result.getString("latest_save"));
+                gameData.setCreationTime(result.getString("creation_time"));
+                gameData.setSeed(result.getInt("seed"));
+                gameData.setPositionX(result.getDouble("position_x"));
+                gameData.setPositionY(result.getDouble("position_y"));
+                gameData.setPositionZ(result.getDouble("position_z"));
+                gameData.setRotationX(result.getDouble("rotation_x"));
+                gameData.setRotationY(result.getDouble("rotation_y"));
+                gameData.setRotationZ(result.getDouble("rotation_z"));
+            }
 
+            pstmt.close();
+            connection.close();
+
+            return gameData;
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
             return null;
+        }
+    }
+
+    public static int getNewestWorldId() {
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+
+            String sqlGetNewestWorldId = "SELECT MAX(world_id) AS max_id "
+                    + "FROM user_worlds;";
+
+            PreparedStatement pstmt = connection.prepareStatement(sqlGetNewestWorldId);
+            ResultSet result = pstmt.executeQuery();
+
+            if (result.next()) {
+                int maxId = result.getInt("max_id");
+                pstmt.close();
+                connection.close();
+                return maxId;
+            } else {
+                pstmt.close();
+                connection.close();
+                return -13;
+            }
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+            return -1;
         }
     }
 
