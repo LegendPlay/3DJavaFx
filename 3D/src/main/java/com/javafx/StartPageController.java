@@ -23,6 +23,6 @@ public class StartPageController {
 
     @FXML
     private void goToSettings() throws IOException {
-        StartPage.setSettingsScene("settingsMenu", "startPage");
+        StartPage.setSettingsScene("settingsMenu", "startPage", FlightSimulatorGame.world_id);
     }
 }

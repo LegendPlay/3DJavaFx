@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 public class SavedWorldsController {
     @FXML
     private void goToSettings() throws IOException {
-        StartPage.setSettingsScene("settingsMenu", "savedWorldsMenu");
+        StartPage.setSettingsScene("settingsMenu", "savedWorldsMenu", FlightSimulatorGame.world_id);
     }
 
     @FXML
