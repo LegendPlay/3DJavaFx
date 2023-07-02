@@ -18,7 +18,7 @@ public class Physics {
     private static final double WING_AREA = 525.0;
     private static final double MAX_BANK_ANGLE = 66.5;
     private static final double LIFT_COEFFICIENT = 0.52;
-    private static final double ACCELERATION = 500;
+    private static final double ACCELERATION = 1000;
     private static final int MASS = 396893;
     private static final byte TURN_PER_SECOND = 3;
     private static final double time = 0.016666667;
@@ -37,7 +37,6 @@ public class Physics {
             double velocityY = getVelocityY() + (GRAVITATIONAL_ACCELERATION - getLiftForce() / MASS) * time;
             velocity = Math.sqrt(Math.pow(getVelocityX(), 2) + Math.pow(getVelocityZ(), 2) + Math.pow(velocityY, 2));
             angleDownwards = Math.toDegrees(Math.asin(velocityY / velocity)) + 180;
-            System.out.println(angleDownwards);
         }
     }
 

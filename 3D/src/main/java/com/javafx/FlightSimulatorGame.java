@@ -69,7 +69,10 @@ public class FlightSimulatorGame {
                     if (deltaTime >= tickDuration) {
                         cameraHandler.handleAnimationTick(deltaTime);
                         previousTime = currentTime;
-                    }
+
+                        // group.getChildren().add(terrain.generateTerrain(seed, cameraHandler));
+                    }     
+
                 } else {
                     previousTime = currentTime;
                 }

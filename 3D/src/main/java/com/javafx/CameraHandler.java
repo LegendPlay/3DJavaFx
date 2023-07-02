@@ -9,7 +9,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.transform.Rotate;
 
 public class CameraHandler {
-    private static final double TRANSLATION_AMOUNT = 10.0;
     private static final double ROTATION_AMOUNT = 2.0;
 
     private double rotX = 180;
@@ -23,12 +22,11 @@ public class CameraHandler {
     private double coordinateX;
     private double altitude;
     private double coordinateZ;
-    private boolean accelerate = false;
-    private boolean decelerate = false;
     private byte curve = 0;
 
     // key bindings
     private String keyFlyForward = SettingsHandler.getKeyBindingValue("Key-FlyForward");
+    private String keyDecelerate = SettingsHandler.getKeyBindingValue("Key-Decelerate");
     private String keyTurnLeft = SettingsHandler.getKeyBindingValue("Key-TurnLeft");
     private String keyTurnRight = SettingsHandler.getKeyBindingValue("Key-TurnRight");
     private String keyRotateDown = SettingsHandler.getKeyBindingValue("Key-RotateDown");
