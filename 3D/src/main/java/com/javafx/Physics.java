@@ -37,7 +37,6 @@ public class Physics {
             double velocityY = getVelocityY() + (GRAVITATIONAL_ACCELERATION - getLiftForce() / MASS) * time;
             velocity = Math.sqrt(Math.pow(getVelocityX(), 2) + Math.pow(getVelocityZ(), 2) + Math.pow(velocityY, 2));
             angleDownwards = Math.toDegrees(Math.asin(velocityY / velocity)) + 180;
-            System.out.println(angleDownwards);
         }
     }
 

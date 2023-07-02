@@ -28,6 +28,7 @@ public class CameraHandler {
 
     // key bindings
     private String keyFlyForward = SettingsHandler.getKeyBindingValue("Key-FlyForward");
+    private String keyDecelerate = SettingsHandler.getKeyBindingValue("Key-Decelerate");
     private String keyTurnLeft = SettingsHandler.getKeyBindingValue("Key-TurnLeft");
     private String keyTurnRight = SettingsHandler.getKeyBindingValue("Key-TurnRight");
     private String keyRotateDown = SettingsHandler.getKeyBindingValue("Key-RotateDown");
