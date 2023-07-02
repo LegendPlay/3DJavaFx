@@ -13,7 +13,10 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onPressedAnchorPane" prefHeight="800.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="resetButton" focusTraversable="false" layoutX="838.0" layoutY="516.0" mnemonicParsing="false" onAction="#resetDefaultKeyBindings" text="Reset to default" />
+      <Button fx:id="resetButton" focusTraversable="false" layoutX="838.0" layoutY="516.0" mnemonicParsing="false" onAction="#resetDefaultKeyBindings" text="Reset to default">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Label layoutX="634.0" layoutY="39.0" text="Settings">
          <font>
             <Font size="48.0" />
@@ -139,7 +142,7 @@
             </Label>
          </children>
       </VBox>
-      <Button fx:id="exitGameButton" alignment="CENTER" defaultButton="true" layoutX="643.0" layoutY="624.0" mnemonicParsing="false" onAction="#exitGame" text="Exit Game">
+      <Button fx:id="exitGameButton" alignment="CENTER" defaultButton="true" layoutX="642.0" layoutY="622.0" mnemonicParsing="false" onAction="#exitGame" text="Quit Game">
          <font>
             <Font size="24.0" />
          </font>
