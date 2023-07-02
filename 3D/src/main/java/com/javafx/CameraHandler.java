@@ -84,7 +84,7 @@ public class CameraHandler {
             rotX += ROTATION_AMOUNT;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keySettingsMenu))) {
             try {
-                StartPage.setSettingsScene("settingsMenu", false);
+                StartPage.setSettingsScene("settingsMenu", "flightSimulator");
             } catch (IOException e) {
                 e.printStackTrace();
             }
