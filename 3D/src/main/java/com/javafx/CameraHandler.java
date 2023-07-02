@@ -71,6 +71,36 @@ public class CameraHandler {
 
     public void handleKeyPress(KeyEvent event) {
         if (event.getCode().equals(KeyCode.valueOf(this.keyFlyForward))) {
+            double deltaX = 10 *
+                    Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
+            double deltaZ = 10 *
+                    Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
+            coordinateX -= deltaX;
+            coordinateZ -= deltaZ;
+
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnLeft))) {
+            double deltaX = 10 * Math.sin(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
+            double deltaZ = 10 * Math.cos(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
+            coordinateX += deltaX;
+            coordinateZ += deltaZ;
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnRight))) {
+            double deltaX = 10 * Math.sin(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
+            double deltaZ = 10 * Math.cos(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
+            coordinateX += deltaX;
+            coordinateZ += deltaZ;
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateDown))) {
+            rotX -= ROTATION_AMOUNT;
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateUp))) {
+            rotX += ROTATION_AMOUNT;
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keySettingsMenu))) {
+            try {
+                StartPage.setSettingsScene("settingsMenu", false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+        }
+        /* if (event.getCode().equals(KeyCode.valueOf(this.keyFlyForward))) {
             physics.accelerate();
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnLeft))) {
             curve = -1;
@@ -94,7 +124,7 @@ public class CameraHandler {
                 e.printStackTrace();
             }
         } else {
-        }
+        } */
     }
 
     public void handleAnimationTick(long timeBetweenTickInNano) {

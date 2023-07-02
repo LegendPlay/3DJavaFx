@@ -215,6 +215,7 @@ public class SettingsHandler {
                 gameData.setRotationX(result.getDouble("rotation_x"));
                 gameData.setRotationY(result.getDouble("rotation_y"));
                 gameData.setRotationZ(result.getDouble("rotation_z"));
+                gameData.setDebug(false); // TODO add in function to swith between keybindings
             }
 
             pstmt.close();

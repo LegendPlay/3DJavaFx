@@ -13,6 +13,7 @@ public class GameData {
     private double rotationX;
     private double rotationY;
     private double rotationZ;
+    private boolean debug;
 
     public GameData() {
     }
@@ -113,6 +114,14 @@ public class GameData {
         this.rotationZ = rotationZ;
     }
 
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
+
+    public boolean getDebug() {
+        return debug;
+    }
+
     @Override
     public String toString() {
         return "GameData{" +
@@ -128,6 +137,7 @@ public class GameData {
                 ", rotationX=" + rotationX +
                 ", rotationY=" + rotationY +
                 ", rotationZ=" + rotationZ +
+                ", debug=" + debug +
                 '}';
     }
 }
