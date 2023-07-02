@@ -7,6 +7,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -22,9 +23,9 @@
             <Font size="64.0" />
          </font>
       </Label>
-      <VBox alignment="CENTER" layoutX="599.0" layoutY="318.0" prefHeight="94.0" prefWidth="242.0" spacing="10.0">
+      <VBox alignment="CENTER" layoutX="595.0" layoutY="320.0" prefHeight="94.0" prefWidth="250.0" spacing="10.0">
          <children>
-            <Button fx:id="newGameButton" focusTraversable="false" graphicTextGap="1.0" mnemonicParsing="false" onAction="#createNewWorld" prefHeight="46.0" prefWidth="252.0" text="New Game">
+            <Button fx:id="newGameButton" focusTraversable="false" graphicTextGap="1.0" mnemonicParsing="false" onAction="#createNewWorld" prefHeight="50.0" prefWidth="300.0" text="New Game">
                <font>
                   <Font size="24.0" />
                </font>
@@ -35,12 +36,19 @@
                   <Insets bottom="5.0" left="54.0" right="54.0" top="5.0" />
                </padding>
             </Button>
-            <Button fx:id="savedWorldsButton" mnemonicParsing="false" onAction="#goToSavedWorlds" prefHeight="51.0" prefWidth="311.0" text="Saved Worlds">
+            <Button fx:id="savedWorldsButton" focusTraversable="false" mnemonicParsing="false" onAction="#goToSavedWorlds" prefHeight="50.0" prefWidth="300.0" text="Saved Worlds">
                <font>
                   <Font size="24.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Button fx:id="settingsButton" focusTraversable="false" mnemonicParsing="false" onAction="#goToSettings" prefHeight="46.0" prefWidth="382.0" text="Settings">
+         </children>
+      </VBox>
+      <HBox layoutX="460.0" layoutY="553.0" prefHeight="50.0" prefWidth="520.0" spacing="20.0">
+         <children>
+            <Button fx:id="settingsButton" focusTraversable="false" mnemonicParsing="false" onAction="#goToSettings" prefHeight="50.0" prefWidth="250.0" text="Settings">
                <font>
                   <Font size="24.0" />
                </font>
@@ -51,7 +59,15 @@
                   <Insets bottom="5.0" left="36.0" right="36.0" top="5.0" />
                </padding>
             </Button>
+            <Button fx:id="quitGameButton" focusTraversable="false" mnemonicParsing="false" onAction="#quitGame" prefHeight="50.0" prefWidth="250.0" text="Quit Game">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
-      </VBox>
+      </HBox>
    </children>
 </AnchorPane>
