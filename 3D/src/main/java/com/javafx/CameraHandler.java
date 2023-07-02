@@ -94,7 +94,7 @@ public class CameraHandler {
             rotX += ROTATION_AMOUNT;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keySettingsMenu))) {
             try {
-                StartPage.setSettingsScene("settingsMenu", false);
+                StartPage.setSettingsScene("settingsMenu", "false", 0);// TODO change world id
             } catch (IOException e) {
                 e.printStackTrace();
             }
