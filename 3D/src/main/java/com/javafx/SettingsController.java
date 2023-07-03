@@ -26,7 +26,7 @@ public class SettingsController implements Initializable {
             "Key-FlyForward",
             "Key-TurnLeft",
             "Key-TurnRight",
-            "Key-FlyUp",
+            "Key-Decelerate",
             "Key-FlyDown",
             "Key-RotateLeft",
             "Key-RotateRight",

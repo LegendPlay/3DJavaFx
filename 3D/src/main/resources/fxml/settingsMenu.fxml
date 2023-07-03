@@ -59,7 +59,7 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></TextField>
-            <TextField id="Key-FlyUp" disable="true" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+            <TextField id="Key-Decelerate" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></TextField>
@@ -106,7 +106,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Fly up">
+            <Label text="Decelerate">
                <font>
                   <Font size="18.0" />
                </font>
