@@ -39,7 +39,6 @@ public class StartPage extends Application {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Save Game");
         alert.setHeaderText("Do you want to save the game before closing?");
-        alert.setContentText("Choose your option.");
 
         ButtonType saveButton = new ButtonType("Save");
         ButtonType closeButton = new ButtonType("Close without saving");
