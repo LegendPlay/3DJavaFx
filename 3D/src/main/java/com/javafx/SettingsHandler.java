@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettingsHandler {
     private static final String DB_URL = "jdbc:sqlite:3D/target/user_data.db";
@@ -214,6 +216,8 @@ public class SettingsHandler {
     }
 
     public static GameData readGameData(int worldId) {
+        GameData gameData = new GameData();
+
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
             String sqlGetGameData = "SELECT * "
@@ -224,7 +228,6 @@ public class SettingsHandler {
             pstmt.setInt(1, worldId);
             ResultSet result = pstmt.executeQuery();
 
-            GameData gameData = new GameData();
             while (result.next()) {
                 gameData.setWorldId(result.getInt("world_id"));
                 gameData.setSettingId(result.getInt("setting_id"));
@@ -244,11 +247,55 @@ public class SettingsHandler {
             pstmt.close();
             connection.close();
 
-            return gameData;
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
-            return null;
         }
+
+        return gameData;
+    }
+
+    public static List<GameData> readAllGameData() {
+        List<GameData> gameDataList = new ArrayList<>();
+
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            String sqlGetAllGameData = "SELECT * FROM user_worlds;";
+
+            PreparedStatement pstmt = connection.prepareStatement(sqlGetAllGameData);
+            ResultSet result = pstmt.executeQuery();
+
+            while (result.next()) {
+                GameData gameData = new GameData();
+                gameData.setWorldId(result.getInt("world_id"));
+                gameData.setSettingId(result.getInt("setting_id"));
+                gameData.setWorldName(result.getString("world_name"));
+                gameData.setLatestSave(result.getString("latest_save"));
+                gameData.setCreationTime(result.getString("creation_time"));
+                gameData.setSeed(result.getInt("seed"));
+                gameData.setPositionX(result.getDouble("position_x"));
+                gameData.setPositionY(result.getDouble("position_y"));
+                gameData.setPositionZ(result.getDouble("position_z"));
+                gameData.setRotationX(result.getDouble("rotation_x"));
+                gameData.setRotationY(result.getDouble("rotation_y"));
+                gameData.setRotationZ(result.getDouble("rotation_z"));
+                gameData.setInFreeFlyMode(result.getInt("isInFreeFlyMode") == 0 ? false : true); // 1 = true, 0 = false
+
+                gameDataList.add(gameData);
+            }
+
+            pstmt.close();
+            connection.close();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        return gameDataList;
+    }
+
+    // TODO
+    public static void deleteWorld(int worldId) {
+        
     }
 
     public static int getNewestWorldId() {
@@ -269,7 +316,7 @@ public class SettingsHandler {
             } else {
                 pstmt.close();
                 connection.close();
-                return -13;
+                return -1;
             }
 
         } catch (SQLException exception) {
@@ -331,6 +378,8 @@ public class SettingsHandler {
     }
 
     public static String getKeyBindingValue(String bindingKey) {
+        String bindingValue = "error"; // default value in case no rows are found
+
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
 
@@ -343,20 +392,17 @@ public class SettingsHandler {
 
             ResultSet result = pstmt.executeQuery();
 
-            String bindingValue = "error"; // Default value in case no rows are found
             if (result.next()) {
-                // Check if the result set has a row before accessing the value
                 bindingValue = result.getString("binding_value");
             }
 
             connection.close();
             pstmt.close();
 
-            return bindingValue;
-
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
-            return "error";
         }
+
+        return bindingValue;
     }
 }
