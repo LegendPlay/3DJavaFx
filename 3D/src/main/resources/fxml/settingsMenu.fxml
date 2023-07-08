@@ -3,6 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -203,5 +204,10 @@
             </TextField>
          </children>
       </VBox>
+      <RadioButton fx:id="freeFlyModeToggle" focusTraversable="false" layoutX="365.0" layoutY="557.0" mnemonicParsing="false" onAction="#setFreeFlyMode" text="Free Fly Mode">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </RadioButton>
    </children>
 </AnchorPane>
