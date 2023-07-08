@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -58,6 +59,9 @@ public class SettingsController implements Initializable {
 
     @FXML
     private Button saveGameButton;
+
+    @FXML
+    private RadioButton freeFlyModeToggle;
 
     public SettingsController(String cameFromMenu, int world_id) {
         this.cameFromMenu = cameFromMenu;
@@ -118,6 +122,12 @@ public class SettingsController implements Initializable {
     }
 
     @FXML
+    private void setFreeFlyMode() {
+        freeFlyModeToggle.setSelected(freeFlyModeToggle.isSelected());
+        SettingsHandler.setIsInFreeFlyMode(world_id, freeFlyModeToggle.isSelected());
+    }
+
+    @FXML
     private void goBackScene() throws IOException {
         switch (cameFromMenu) {
             case "startPage":
@@ -163,6 +173,7 @@ public class SettingsController implements Initializable {
                 saveWorldName.setDisable(true);
                 saveAndExitButton.setDisable(true);
                 saveGameButton.setDisable(true);
+                freeFlyModeToggle.setDisable(true);
                 break;
             case "flightSimulator":
                 homeIcon.setVisible(true);
@@ -173,6 +184,7 @@ public class SettingsController implements Initializable {
                 saveWorldName.setDisable(true);
                 saveAndExitButton.setDisable(true);
                 saveGameButton.setDisable(true);
+                freeFlyModeToggle.setDisable(true);
                 break;
             case "createWorldMenu":
                 homeIcon.setVisible(true);
@@ -180,11 +192,14 @@ public class SettingsController implements Initializable {
                 saveWorldName.setDisable(true);
                 saveAndExitButton.setDisable(true);
                 saveGameButton.setDisable(true);
+                freeFlyModeToggle.setDisable(true);
             default:
                 break;
         }
 
         GameData data = SettingsHandler.readGameData(world_id);
+
+        freeFlyModeToggle.setSelected(data.getIsInFreeFlyMode());
         seedTextField.setText(String.valueOf(data.getSeed()));
         worldNameTextField.setText(data.getWorldName());
 
