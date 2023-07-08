@@ -1,13 +1,10 @@
 package com.javafx;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -19,7 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class SettingsController implements Initializable {
+public class SettingsController {
     private String cameFromMenu;
     private int world_id;
     private List<TextField> keyBindingFields;
@@ -149,8 +146,7 @@ public class SettingsController implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
+    public void initialize() {
         anchorPane.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
             // if ESC is pressed in settings
             if (e.getCode().equals(KeyCode.ESCAPE)) {

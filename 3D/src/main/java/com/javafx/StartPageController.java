@@ -35,7 +35,7 @@ public class StartPageController {
     }
 
     public void initialize() {
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(60), backgroundImage);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(80), backgroundImage);
         translateTransition.setFromX(0);
         translateTransition.setToX(-2500);
         translateTransition.setInterpolator(Interpolator.LINEAR);
