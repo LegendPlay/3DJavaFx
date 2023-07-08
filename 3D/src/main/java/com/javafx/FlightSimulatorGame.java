@@ -22,6 +22,7 @@ public class FlightSimulatorGame {
     private double rotation_x;
     private double rotation_y;
     private double rotation_z;
+    private boolean isInFreeFlyMode;
 
     public FlightSimulatorGame(GameData gameData) {
         FlightSimulatorGame.world_id = gameData.getWorldId();
@@ -32,14 +33,26 @@ public class FlightSimulatorGame {
         this.rotation_x = gameData.getRotationX();
         this.rotation_y = gameData.getRotationY();
         this.rotation_z = gameData.getRotationZ();
+        this.isInFreeFlyMode = gameData.getIsInFreeFlyMode();
     }
 
     public Scene startGame() {
         Group group = new Group();
         Scene scene = new Scene(group, STAGE_WIDTH, STAGE_HEIGHT, true);
 
-        // camera
-        CameraHandler cameraHandler = new CameraHandler(world_id);
+        if (isInFreeFlyMode) {
+            CameraHandlerFreeFlyMode cameraHandler = new CameraHandlerFreeFlyMode(world_id);
+
+            return game(cameraHandler, scene, group);
+        } else {
+            CameraHandlerPhysics cameraHandler = new CameraHandlerPhysics(world_id);
+
+            return game(cameraHandler, scene, group);
+        }
+    }
+
+    private Scene game(CameraHandler cameraHandler, Scene scene, Group group) {
+
         Camera camera = cameraHandler.setupCamera(position_x, position_y, position_z, rotation_x, rotation_y,
                 rotation_z);
 
@@ -71,7 +84,7 @@ public class FlightSimulatorGame {
                         previousTime = currentTime;
 
                         // group.getChildren().add(terrain.generateTerrain(seed, cameraHandler));
-                    }     
+                    }
 
                 } else {
                     previousTime = currentTime;
