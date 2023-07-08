@@ -13,7 +13,7 @@ public class GameData {
     private double rotationX;
     private double rotationY;
     private double rotationZ;
-    private boolean debug;
+    private boolean isInFreeFlyMode;
 
     public GameData() {
     }
@@ -114,12 +114,12 @@ public class GameData {
         this.rotationZ = rotationZ;
     }
 
-    public void setDebug(boolean debug) {
-        this.debug = debug;
+    public void setInFreeFlyMode(boolean isInFreeFlyMode) {
+        this.isInFreeFlyMode = isInFreeFlyMode;
     }
 
-    public boolean getDebug() {
-        return debug;
+    public boolean getIsInFreeFlyMode() {
+        return isInFreeFlyMode;
     }
 
     @Override
@@ -137,7 +137,7 @@ public class GameData {
                 ", rotationX=" + rotationX +
                 ", rotationY=" + rotationY +
                 ", rotationZ=" + rotationZ +
-                ", debug=" + debug +
+                ", isInFreeFlyMode=" + isInFreeFlyMode +
                 '}';
     }
 }

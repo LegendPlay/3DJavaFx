@@ -42,6 +42,7 @@ public class SettingsHandler {
                     + "rotation_x NUMERIC NOT NULL,"
                     + "rotation_y NUMERIC NOT NULL,"
                     + "rotation_z NUMERIC NOT NULL,"
+                    + "isInFreeFlyMode INTEGER NOT NULL," // 1 = true, 0 = false
                     + "FOREIGN KEY (setting_id) REFERENCES user_settings (setting_id)"
                     + ");";
 
@@ -124,8 +125,8 @@ public class SettingsHandler {
     public static void createGame(int seed, String worldName) {
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
-            String sqlCreateGame = "INSERT INTO user_worlds (setting_id, world_name, creation_time, seed, position_x, position_y, position_z, rotation_x, rotation_y, rotation_z) "
-                    + "VALUES (1, ?, DATETIME('now', 'localtime'), ?, 0, 20, 0, 180, 0, 0);";
+            String sqlCreateGame = "INSERT INTO user_worlds (setting_id, world_name, creation_time, seed, position_x, position_y, position_z, rotation_x, rotation_y, rotation_z, isInFreeFlyMode) "
+                    + "VALUES (1, ?, DATETIME('now', 'localtime'), ?, 0, 20, 0, 180, 0, 0, 1);";
             PreparedStatement pstmt = connection.prepareStatement(sqlCreateGame);
 
             pstmt.setString(1, worldName);
@@ -141,12 +142,12 @@ public class SettingsHandler {
     }
 
     public static void saveGameData(int worldId, double positionX, double positionY, double positionZ,
-            double rotationX, double rotationY, double rotationZ) {
+            double rotationX, double rotationY, double rotationZ, boolean isInFreeFlyMode) {
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
             String sqlSaveGameData = "UPDATE user_worlds "
                     + "SET latest_save = DATETIME('now', 'localtime'), position_x = ?, position_y = ?, position_z = ?, "
-                    + "rotation_x = ?, rotation_y = ?, rotation_z = ? "
+                    + "rotation_x = ?, rotation_y = ?, rotation_z = ?, isInFreeFlyMode = ? "
                     + "WHERE world_id = ? ;";
 
             PreparedStatement pstmt = connection.prepareStatement(sqlSaveGameData);
@@ -156,8 +157,9 @@ public class SettingsHandler {
             pstmt.setDouble(4, rotationX);
             pstmt.setDouble(5, rotationY);
             pstmt.setDouble(6, rotationZ);
+            pstmt.setInt(7, isInFreeFlyMode ? 1 : 0);
 
-            pstmt.setInt(7, worldId);
+            pstmt.setInt(8, worldId);
 
             pstmt.executeUpdate();
 
@@ -178,6 +180,27 @@ public class SettingsHandler {
 
             PreparedStatement pstmt = connection.prepareStatement(sqlSetWorldName);
             pstmt.setString(1, worldName);
+            pstmt.setInt(2, worldId);
+
+            pstmt.executeUpdate();
+
+            pstmt.close();
+            connection.close();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    public static void setIsInFreeFlyMode(int worldId, boolean isInFreeFlyMode) {
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            String sqlSetWorldName = "UPDATE user_worlds "
+                    + "SET isInFreeFlyMode = ? "
+                    + "WHERE world_id = ? ;";
+
+            PreparedStatement pstmt = connection.prepareStatement(sqlSetWorldName);
+            pstmt.setInt(1, isInFreeFlyMode ? 1 : 0);
             pstmt.setInt(2, worldId);
 
             pstmt.executeUpdate();
@@ -215,7 +238,7 @@ public class SettingsHandler {
                 gameData.setRotationX(result.getDouble("rotation_x"));
                 gameData.setRotationY(result.getDouble("rotation_y"));
                 gameData.setRotationZ(result.getDouble("rotation_z"));
-                gameData.setDebug(false); // TODO add in function to swith between keybindings
+                gameData.setInFreeFlyMode(result.getInt("isInFreeFlyMode") == 0 ? false : true); // 1 = true, 0 = false
             }
 
             pstmt.close();
