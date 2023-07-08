@@ -13,9 +13,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.StartPageController">
    <children>
-      <ImageView fitHeight="968.0" fitWidth="1440.0" layoutY="-160.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="backgroundImage" fitHeight="1500.0" fitWidth="4000.0" layoutY="-365.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/start-menu-background.jpg" />
+            <Image url="@../images/startMenubackground.jpg" />
          </image>
       </ImageView>
       <Label layoutX="496.0" layoutY="182.0" text="Flight Simulator">
