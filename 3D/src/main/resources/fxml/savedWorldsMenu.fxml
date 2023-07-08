@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.SavedWorldsController">
    <children>
-      <ListView fx:id="listOfGames" layoutX="150.0" layoutY="100.0" prefHeight="650.0" prefWidth="800.0" />
+      <ListView fx:id="listOfGames" focusTraversable="false" layoutX="150.0" layoutY="100.0" prefHeight="650.0" prefWidth="800.0" />
       <Label layoutX="441.0" layoutY="30.0" text="Saved Worlds">
          <font>
             <Font size="36.0" />
@@ -20,7 +20,7 @@
       </Label>
       <VBox layoutX="1060.0" layoutY="492.0" prefHeight="22.0" prefWidth="270.0" spacing="20.0">
          <children>
-            <Button fx:id="playWorldButton" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="500.0" text="Play">
+            <Button fx:id="playWorldButton" disable="true" focusTraversable="false" mnemonicParsing="false" onAction="#playWorld" prefHeight="40.0" prefWidth="500.0" text="Play">
                <font>
                   <Font size="18.0" />
                </font>
@@ -28,7 +28,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="editWorldsButton" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="500.0" text="Edit">
+            <Button fx:id="editWorldButton" disable="true" focusTraversable="false" mnemonicParsing="false" onAction="#editWorld" prefHeight="40.0" prefWidth="500.0" text="Edit">
                <font>
                   <Font size="18.0" />
                </font>
@@ -36,7 +36,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="deleteWorldButton" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="500.0" text="Delete">
+            <Button fx:id="deleteWorldButton" disable="true" focusTraversable="false" mnemonicParsing="false" onAction="#deleteWorld" prefHeight="40.0" prefWidth="500.0" text="Delete">
                <font>
                   <Font size="18.0" />
                </font>
