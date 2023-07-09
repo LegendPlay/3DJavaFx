@@ -2,8 +2,9 @@ package com.javafx;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,6 +21,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class SavedWorldsController {
+    private ObservableList<GameData> gameDataList;
+
     @FXML
     private Button playWorldButton;
 
@@ -49,10 +52,10 @@ public class SavedWorldsController {
     }
 
     public void initialize() {
-        List<GameData> list = SettingsHandler.readAllGameData();
-        Collections.reverse(list);
+        gameDataList = FXCollections.observableArrayList(SettingsHandler.readAllGameData());
+        Collections.reverse(gameDataList);
 
-        listOfGames.getItems().addAll(list);
+        listOfGames.setItems(gameDataList);
 
         listOfGames.setCellFactory(param -> new ListCell<GameData>() {
             private VBox container = new VBox();
@@ -101,13 +104,19 @@ public class SavedWorldsController {
 
     @FXML
     private void playWorld() {
-        FlightSimulatorGame game = new FlightSimulatorGame(selectedGameData);
-        StartPage.setScene(game.startGame());
+        if (selectedGameData != null) {
+            FlightSimulatorGame game = new FlightSimulatorGame(selectedGameData);
+            StartPage.setScene(game.startGame());
+        }
     }
 
     @FXML
     private void deleteWorld() {
-
+        if (selectedGameData != null) {
+            SettingsHandler.deleteWorld(selectedGameData.getWorldId());
+            gameDataList.remove(selectedGameData);
+            listOfGames.refresh();
+        }
     }
 
     @FXML
