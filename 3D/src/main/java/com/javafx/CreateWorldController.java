@@ -3,13 +3,17 @@ package com.javafx;
 import java.io.IOException;
 import java.util.Random;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 
 public class CreateWorldController {
     private final String pattern = "([1-9]\\d{0,3}?|10000)";
+    private ObservableList<String> gameModes = FXCollections.observableArrayList("Free Fly Mode", "Realistic Flight Mode");
 
     @FXML
     private TextField seedTextField;
@@ -21,8 +25,16 @@ public class CreateWorldController {
     private AnchorPane anchorPane;
 
     @FXML
+    private ChoiceBox<String> gamemodeChoiceBox;
+
+    @FXML
     private void goBackScene() throws IOException {
         StartPage.setScene("startMenu");
+    }
+
+    public void initialize() {
+        gamemodeChoiceBox.setItems(gameModes);
+        gamemodeChoiceBox.setValue(gameModes.get(0));
     }
 
     @FXML
@@ -60,8 +72,9 @@ public class CreateWorldController {
             seedTextField.clear();
         }
 
+        boolean gameModeBool = gamemodeChoiceBox.getValue().equals("Free Fly Mode");
         if (nameValid && seedValid) {
-            SettingsHandler.createGame(userSeed, worldName);
+            SettingsHandler.createGame(userSeed, worldName, gameModeBool);
 
             GameData data = SettingsHandler.readGameData(SettingsHandler.getNewestWorldId());
 
