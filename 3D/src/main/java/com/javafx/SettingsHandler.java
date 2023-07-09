@@ -9,6 +9,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
+
 public class SettingsHandler {
     private static final String DB_URL = "jdbc:sqlite:3D/target/user_data.db";
     private static final String TABLE_NAME = "user_settings";
@@ -45,6 +52,7 @@ public class SettingsHandler {
                     + "rotation_y NUMERIC NOT NULL,"
                     + "rotation_z NUMERIC NOT NULL,"
                     + "isInFreeFlyMode INTEGER NOT NULL," // 1 = true, 0 = false
+                    + "latest_screenshot BLOB,"
                     + "FOREIGN KEY (setting_id) REFERENCES user_settings (setting_id)"
                     + ");";
 
@@ -127,8 +135,8 @@ public class SettingsHandler {
     public static void createGame(int seed, String worldName, boolean isInFreeFlyMode) {
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
-            String sqlCreateGame = "INSERT INTO user_worlds (setting_id, world_name, creation_time, seed, position_x, position_y, position_z, rotation_x, rotation_y, rotation_z, isInFreeFlyMode) "
-                    + "VALUES (1, ?, DATETIME('now', 'localtime'), ?, 0, 20, 0, 180, 0, 0, ?);";
+            String sqlCreateGame = "INSERT INTO user_worlds (setting_id, world_name, creation_time, seed, position_x, position_y, position_z, rotation_x, rotation_y, rotation_z, isInFreeFlyMode, latest_screenshot) "
+                    + "VALUES (1, ?, DATETIME('now', 'localtime'), ?, 0, 20, 0, 180, 0, 0, ?, -0);";
             PreparedStatement pstmt = connection.prepareStatement(sqlCreateGame);
 
             pstmt.setString(1, worldName);
@@ -243,6 +251,10 @@ public class SettingsHandler {
                 gameData.setRotationY(result.getDouble("rotation_y"));
                 gameData.setRotationZ(result.getDouble("rotation_z"));
                 gameData.setInFreeFlyMode(result.getInt("isInFreeFlyMode") == 1 ? true : false); // 1 = true, 0 = false
+                byte[] imageBytes = result.getBytes("latest_screenshot");
+                if (imageBytes != null) {
+                    gameData.setLatestScreenshot(imageBytes);
+                }
             }
 
             pstmt.close();
@@ -280,6 +292,11 @@ public class SettingsHandler {
                 gameData.setRotationY(result.getDouble("rotation_y"));
                 gameData.setRotationZ(result.getDouble("rotation_z"));
                 gameData.setInFreeFlyMode(result.getInt("isInFreeFlyMode") == 0 ? false : true); // 1 = true, 0 = false
+
+                byte[] imageBytes = result.getBytes("latest_screenshot");
+                if (imageBytes != null) {
+                    gameData.setLatestScreenshot(imageBytes);
+                }
 
                 gameDataList.add(gameData);
             }
@@ -418,5 +435,79 @@ public class SettingsHandler {
         }
 
         return bindingValue;
+    }
+
+    // public static Image screenshot(Scene scene) {
+    // WritableImage image = scene.snapshot(null);
+
+    // byte[] imageBytes = writableImageToByteArray(image);
+
+    // return byteArrayToImage(imageBytes, (int) image.getWidth(), (int)
+    // image.getHeight());
+    // }
+
+    public static void saveScreenshot(int worldId, Scene scene) {
+        WritableImage image = scene.snapshot(null);
+        byte[] imageBytes = writableImageToByteArray(image);
+
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+
+            String sqlUpdateLatestScreenshot = "UPDATE user_worlds "
+                    + "SET latest_screenshot = ? "
+                    + "WHERE world_id = ? ;";
+
+            PreparedStatement pstmt = connection.prepareStatement(sqlUpdateLatestScreenshot);
+            pstmt.setBytes(1, imageBytes);
+            pstmt.setInt(2, worldId);
+
+            pstmt.executeUpdate();
+
+            pstmt.close();
+            connection.close();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    public static Image byteArrayToImage(byte[] imageBytes, int width, int height) {
+        WritableImage writableImage = new WritableImage(width, height);
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int pixelIndex = (y * width + x) * 4;
+                int red = (imageBytes[pixelIndex] & 0xFF);
+                int green = (imageBytes[pixelIndex + 1] & 0xFF);
+                int blue = (imageBytes[pixelIndex + 2] & 0xFF);
+                int alpha = (imageBytes[pixelIndex + 3] & 0xFF);
+
+                Color color = Color.rgb(red, green, blue, alpha / 255.0);
+                pixelWriter.setColor(x, y, color);
+            }
+        }
+
+        return writableImage;
+    }
+
+    public static byte[] writableImageToByteArray(WritableImage writableImage) {
+        PixelReader pixelReader = writableImage.getPixelReader();
+        int width = (int) writableImage.getWidth();
+        int height = (int) writableImage.getHeight();
+        byte[] imageBytes = new byte[width * height * 4];
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int pixelIndex = (y * width + x) * 4;
+                Color color = pixelReader.getColor(x, y);
+                imageBytes[pixelIndex] = (byte) (color.getRed() * 255);
+                imageBytes[pixelIndex + 1] = (byte) (color.getGreen() * 255);
+                imageBytes[pixelIndex + 2] = (byte) (color.getBlue() * 255);
+                imageBytes[pixelIndex + 3] = (byte) (color.getOpacity() * 255);
+            }
+        }
+
+        return imageBytes;
     }
 }
