@@ -14,6 +14,7 @@ public class GameData {
     private double rotationY;
     private double rotationZ;
     private boolean isInFreeFlyMode;
+    private byte[] latestScreenshot;
 
     public GameData() {
     }
@@ -120,6 +121,14 @@ public class GameData {
 
     public boolean getIsInFreeFlyMode() {
         return isInFreeFlyMode;
+    }
+
+    public void setLatestScreenshot(byte[] latestScreenshot) {
+        this.latestScreenshot = latestScreenshot;
+    }
+
+    public byte[] getLatestScreenshot() {
+        return this.latestScreenshot;
     }
 
     @Override

@@ -14,6 +14,7 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -39,7 +40,13 @@ public class SavedWorldsController {
     private ListView<GameData> listOfGames;
 
     @FXML
-    private GameData selectedGameData;
+    private GameData selectedGameData;    
+    
+    @FXML
+    private ImageView imageViewGamePreView;
+
+    @FXML
+    private Label worldPreviewLabel;
 
     @FXML
     private void goToSettings() throws IOException {
@@ -98,6 +105,9 @@ public class SavedWorldsController {
                 enableButtons();
 
                 selectedGameData = newValue;
+
+                imageViewGamePreView.setImage(SettingsHandler.byteArrayToImage(selectedGameData.getLatestScreenshot(), 1440, 800));
+                worldPreviewLabel.setVisible(true);
             }
         });
     }

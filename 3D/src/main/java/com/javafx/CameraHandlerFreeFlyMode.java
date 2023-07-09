@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.scene.Camera;
 import javafx.scene.PerspectiveCamera;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.transform.Rotate;
@@ -33,9 +34,11 @@ public class CameraHandlerFreeFlyMode extends CameraHandler {
     private String keySettingsMenu = SettingsHandler.getKeyBindingValue("Key-SettingsMenu");
 
     private int world_id;
+    private Scene scene;
 
-    public CameraHandlerFreeFlyMode(int world_id) {
+    public CameraHandlerFreeFlyMode(int world_id, Scene scene) {
         this.world_id = world_id;
+        this.scene = scene;
     }
 
     @Override
@@ -78,7 +81,12 @@ public class CameraHandlerFreeFlyMode extends CameraHandler {
             coordinateX -= deltaX;
             coordinateZ -= deltaZ;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyDecelerate))) {
-            // TODO Fly backwards
+            double deltaX = TRANSLATION_AMOUNT *
+                    Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
+            double deltaZ = TRANSLATION_AMOUNT *
+                    Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
+            coordinateX += deltaX;
+            coordinateZ += deltaZ;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnLeft))) {
             double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
             double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
@@ -95,6 +103,8 @@ public class CameraHandlerFreeFlyMode extends CameraHandler {
             rotX += ROTATION_AMOUNT;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keySettingsMenu))) {
             try {
+                SettingsHandler.saveScreenshot(world_id, scene);
+
                 StartPage.setSettingsScene("settingsMenu", "flightSimulator", world_id);
 
                 SettingsHandler.saveGameData(world_id, coordinateX, altitude, coordinateZ, rotX, rotY, rotZ, true);
