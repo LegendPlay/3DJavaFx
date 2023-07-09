@@ -124,15 +124,16 @@ public class SettingsHandler {
         }
     }
 
-    public static void createGame(int seed, String worldName) {
+    public static void createGame(int seed, String worldName, boolean isInFreeFlyMode) {
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
             String sqlCreateGame = "INSERT INTO user_worlds (setting_id, world_name, creation_time, seed, position_x, position_y, position_z, rotation_x, rotation_y, rotation_z, isInFreeFlyMode) "
-                    + "VALUES (1, ?, DATETIME('now', 'localtime'), ?, 0, 20, 0, 180, 0, 0, 1);";
+                    + "VALUES (1, ?, DATETIME('now', 'localtime'), ?, 0, 20, 0, 180, 0, 0, ?);";
             PreparedStatement pstmt = connection.prepareStatement(sqlCreateGame);
 
             pstmt.setString(1, worldName);
             pstmt.setInt(2, seed);
+            pstmt.setInt(3, isInFreeFlyMode ? 1 : 0); // 1 = true, 0 = false
             pstmt.executeUpdate();
 
             pstmt.close();
@@ -241,7 +242,7 @@ public class SettingsHandler {
                 gameData.setRotationX(result.getDouble("rotation_x"));
                 gameData.setRotationY(result.getDouble("rotation_y"));
                 gameData.setRotationZ(result.getDouble("rotation_z"));
-                gameData.setInFreeFlyMode(result.getInt("isInFreeFlyMode") == 0 ? false : true); // 1 = true, 0 = false
+                gameData.setInFreeFlyMode(result.getInt("isInFreeFlyMode") == 1 ? true : false); // 1 = true, 0 = false
             }
 
             pstmt.close();
@@ -293,9 +294,22 @@ public class SettingsHandler {
         return gameDataList;
     }
 
-    // TODO
     public static void deleteWorld(int worldId) {
-        
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            String sqlDeleteWorld = "DELETE FROM user_worlds WHERE world_id = ?;";
+
+            PreparedStatement pstmt = connection.prepareStatement(sqlDeleteWorld);
+            pstmt.setInt(1, worldId);
+
+            pstmt.executeUpdate();
+
+            pstmt.close();
+            connection.close();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
     public static int getNewestWorldId() {
