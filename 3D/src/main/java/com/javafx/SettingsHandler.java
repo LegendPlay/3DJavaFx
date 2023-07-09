@@ -293,9 +293,22 @@ public class SettingsHandler {
         return gameDataList;
     }
 
-    // TODO
     public static void deleteWorld(int worldId) {
-        
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            String sqlDeleteWorld = "DELETE FROM user_worlds WHERE world_id = ?;";
+
+            PreparedStatement pstmt = connection.prepareStatement(sqlDeleteWorld);
+            pstmt.setInt(1, worldId);
+
+            pstmt.executeUpdate();
+
+            pstmt.close();
+            connection.close();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
     public static int getNewestWorldId() {
