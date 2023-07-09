@@ -41,11 +41,11 @@ public class FlightSimulatorGame {
         Scene scene = new Scene(group, STAGE_WIDTH, STAGE_HEIGHT, true);
 
         if (isInFreeFlyMode) {
-            CameraHandlerFreeFlyMode cameraHandler = new CameraHandlerFreeFlyMode(world_id);
+            CameraHandlerFreeFlyMode cameraHandler = new CameraHandlerFreeFlyMode(world_id, scene);
 
             return game(cameraHandler, scene, group);
         } else {
-            CameraHandlerPhysics cameraHandler = new CameraHandlerPhysics(world_id);
+            CameraHandlerPhysics cameraHandler = new CameraHandlerPhysics(world_id, scene);
 
             return game(cameraHandler, scene, group);
         }
