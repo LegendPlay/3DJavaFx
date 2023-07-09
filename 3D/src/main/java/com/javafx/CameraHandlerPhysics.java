@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.scene.Camera;
 import javafx.scene.PerspectiveCamera;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.transform.Rotate;
@@ -34,9 +35,11 @@ public class CameraHandlerPhysics extends CameraHandler {
     private String keySettingsMenu = SettingsHandler.getKeyBindingValue("Key-SettingsMenu");
 
     private int world_id;
+    private Scene scene;
 
-    public CameraHandlerPhysics(int world_id) {
+    public CameraHandlerPhysics(int world_id, Scene scene) {
         this.world_id = world_id;
+        this.scene = scene;
     }
 
     public Camera setupCamera(double position_x, double position_y, double position_z, double rotation_x,
@@ -94,6 +97,8 @@ public class CameraHandlerPhysics extends CameraHandler {
             rotX += ROTATION_AMOUNT;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keySettingsMenu))) {
             try {
+                SettingsHandler.saveScreenshot(world_id, scene);
+        
                 StartPage.setSettingsScene("settingsMenu", "flightSimulator", world_id);
 
                 SettingsHandler.saveGameData(world_id, coordinateX, altitude, coordinateZ, rotX, rotY, rotZ, false);
