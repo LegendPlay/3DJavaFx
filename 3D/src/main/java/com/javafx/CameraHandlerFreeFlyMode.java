@@ -25,13 +25,17 @@ public class CameraHandlerFreeFlyMode extends CameraHandler {
     private double rotZ = 0;
 
     // key bindings
-    private String keyFlyForward = SettingsHandler.getKeyBindingValue("Key-FlyForward");
-    private String keyDecelerate = SettingsHandler.getKeyBindingValue("Key-Decelerate");
-    private String keyTurnLeft = SettingsHandler.getKeyBindingValue("Key-TurnLeft");
-    private String keyTurnRight = SettingsHandler.getKeyBindingValue("Key-TurnRight");
-    private String keyRotateDown = SettingsHandler.getKeyBindingValue("Key-RotateDown");
-    private String keyRotateUp = SettingsHandler.getKeyBindingValue("Key-RotateUp");
-    private String keySettingsMenu = SettingsHandler.getKeyBindingValue("Key-SettingsMenu");
+    private String keyForward = SettingsHandler.getKeyBindingValue("KeyF-Forward");
+    private String keyBackward = SettingsHandler.getKeyBindingValue("KeyF-Backward");
+    private String keyUp = SettingsHandler.getKeyBindingValue("KeyF-Up");
+    private String keyDown = SettingsHandler.getKeyBindingValue("KeyF-Down");
+    private String keyLeft = SettingsHandler.getKeyBindingValue("KeyF-Left");
+    private String keyRight = SettingsHandler.getKeyBindingValue("KeyF-Right");
+    private String keyRotateLeft = SettingsHandler.getKeyBindingValue("KeyF-RotateLeft");
+    private String keyRotateRight = SettingsHandler.getKeyBindingValue("KeyF-RotateRight");
+    private String keyRotateDown = SettingsHandler.getKeyBindingValue("KeyF-RotateDown");
+    private String keyRotateUp = SettingsHandler.getKeyBindingValue("KeyF-RotateUp");
+    private String keySettingsMenu = SettingsHandler.getKeyBindingValue("KeyF-SettingsMenu");
 
     private int world_id;
     private Scene scene;
@@ -73,26 +77,31 @@ public class CameraHandlerFreeFlyMode extends CameraHandler {
     }
 
     public void handleKeyPress(KeyEvent event) {
-        if (event.getCode().equals(KeyCode.valueOf(this.keyFlyForward))) {
+        if (event.getCode().equals(KeyCode.valueOf(this.keyForward))) {
             double deltaX = TRANSLATION_AMOUNT *
                     Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
             double deltaZ = TRANSLATION_AMOUNT *
                     Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
             coordinateX -= deltaX;
             coordinateZ -= deltaZ;
-        } else if (event.getCode().equals(KeyCode.valueOf(this.keyDecelerate))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyBackward))) {
             double deltaX = TRANSLATION_AMOUNT *
                     Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
             double deltaZ = TRANSLATION_AMOUNT *
                     Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
             coordinateX += deltaX;
             coordinateZ += deltaZ;
-        } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnLeft))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyBackward))) {
+            double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle()));
+            double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle()));
+            coordinateX += deltaX;
+            coordinateZ += deltaZ;
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyRight))) {
             double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
             double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
             coordinateX += deltaX;
             coordinateZ += deltaZ;
-        } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnRight))) {
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyLeft))) {
             double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
             double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
             coordinateX += deltaX;
@@ -101,6 +110,14 @@ public class CameraHandlerFreeFlyMode extends CameraHandler {
             rotX -= ROTATION_AMOUNT;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateUp))) {
             rotX += ROTATION_AMOUNT;
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateLeft))) {
+            rotY -= ROTATION_AMOUNT;
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateRight))) {
+            rotY += ROTATION_AMOUNT;
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyDown))) {
+            altitude -= TRANSLATION_AMOUNT;
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyUp))) {
+            altitude += TRANSLATION_AMOUNT;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keySettingsMenu))) {
             try {
                 SettingsHandler.saveScreenshot(world_id, scene);
