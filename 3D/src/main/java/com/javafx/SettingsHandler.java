@@ -60,33 +60,11 @@ public class SettingsHandler {
             statement.executeUpdate(sqlCreateKeyBindingsTable);
             statement.executeUpdate(sqlCreateUserWorldsTable);
 
-            // check if all columns are there
-            String sqlCheckUserSettings = "SELECT COUNT(*) FROM user_settings";
-            ResultSet resultSet = statement.executeQuery(sqlCheckUserSettings);
-            int userSettingsRowCount = 0;
-            if (resultSet.next()) {
-                userSettingsRowCount = resultSet.getInt(1);
-            }
-            resultSet.close();
 
-            // if user_settings table empty, insert a default row
-            if (userSettingsRowCount == 0) {
-                String sqlSetDefaultUserSettings = "INSERT INTO user_settings DEFAULT VALUES";
-                statement.executeUpdate(sqlSetDefaultUserSettings);
-            }
+            String sqlSetDefaultUserSettings = "INSERT INTO user_settings DEFAULT VALUES";
+            statement.executeUpdate(sqlSetDefaultUserSettings);
 
-            String sqlCheckKeyBindings = "SELECT COUNT(*) FROM key_bindings";
-            resultSet = statement.executeQuery(sqlCheckKeyBindings);
-            int keyBindingsRowCount = 0;
-            if (resultSet.next()) {
-                keyBindingsRowCount = resultSet.getInt(1);
-            }
-            resultSet.close();
-
-            // if key_bindings table empty, insert default key bindings
-            if (keyBindingsRowCount < 4) {
-                insertDefaultKeyBindings(connection);
-            }
+            insertDefaultKeyBindings(connection);
 
             connection.close();
             statement.close();
@@ -111,6 +89,47 @@ public class SettingsHandler {
                     { "Key-TurnLeft", "A" },
                     { "Key-TurnRight", "D" },
                     { "Key-SettingsMenu", "ESCAPE" }
+            };
+
+            PreparedStatement pstmt = connection.prepareStatement(sqlSetDefault);
+
+            var i = 1;
+            for (String[] binding : propertiesList) {
+                pstmt.setString(1, binding[0]);
+                pstmt.setString(2, binding[1]);
+                pstmt.setInt(3, i);
+
+                pstmt.executeUpdate();
+                i++;
+            }
+            pstmt.close();
+            connection.close();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    public static void setDefaultKeyBindingsFree() {
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+
+            String sqlSetDefault = "UPDATE key_bindings SET binding_key = ? , "
+                    + "binding_value = ?"
+                    + "WHERE binding_id = ?;";
+
+            String[][] propertiesList = {
+                    { "KeyF-Forward", "W" },
+                    { "KeyF-Left", "A" },
+                    { "KeyF-Right", "D" },
+                    { "KeyF-Backward", "S" },
+                    { "KeyF-Down", "SHIFT" },
+                    { "KeyF-Up", "SPACE" },
+                    { "KeyF-RotateLeft", "LEFT" },
+                    { "KeyF-RotateRight", "RIGHT" },
+                    { "KeyF-RotateUp", "UP" },
+                    { "KeyF-RotateDown", "DOWN" },
+                    { "KeyF-SettingsMenu", "ESCAPE" }
             };
 
             PreparedStatement pstmt = connection.prepareStatement(sqlSetDefault);
@@ -369,7 +388,19 @@ public class SettingsHandler {
                     { "Key-RotateDown", "DOWN" },
                     { "Key-TurnLeft", "A" },
                     { "Key-TurnRight", "D" },
-                    { "Key-SettingsMenu", "ESCAPE" }
+                    { "Key-SettingsMenu", "ESCAPE" },
+
+                    { "KeyF-Forward", "W" },
+                    { "KeyF-Left", "A" },
+                    { "KeyF-Right", "D" },
+                    { "KeyF-Backward", "S" },
+                    { "KeyF-Down", "SHIFT" },
+                    { "KeyF-Up", "SPACE" },
+                    { "KeyF-RotateLeft", "LEFT" },
+                    { "KeyF-RotateRight", "RIGHT" },
+                    { "KeyF-RotateUp", "UP" },
+                    { "KeyF-RotateDown", "DOWN" },
+                    { "KeyF-SettingsMenu", "ESCAPE" }
             };
 
             for (String[] binding : propertiesList) {
