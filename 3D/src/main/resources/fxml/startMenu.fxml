@@ -18,12 +18,12 @@
             <Image url="@../images/startMenubackground.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="496.0" layoutY="182.0" text="Flight Simulator">
+      <Label layoutX="497.0" layoutY="126.0" text="Flight Simulator">
          <font>
             <Font size="64.0" />
          </font>
       </Label>
-      <VBox alignment="CENTER" layoutX="595.0" layoutY="320.0" prefHeight="94.0" prefWidth="250.0" spacing="10.0">
+      <VBox alignment="CENTER" layoutX="595.0" layoutY="280.0" prefHeight="94.0" prefWidth="250.0" spacing="10.0">
          <children>
             <Button fx:id="newGameButton" focusTraversable="false" graphicTextGap="1.0" mnemonicParsing="false" onAction="#createNewWorld" prefHeight="50.0" prefWidth="300.0" text="New Game">
                <font>
@@ -44,9 +44,17 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Button fx:id="ScreenshotsButton" focusTraversable="false" mnemonicParsing="false" onAction="#goToScreenshots" prefHeight="50.0" prefWidth="300.0" text="Screenshots">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </VBox>
-      <HBox layoutX="460.0" layoutY="553.0" prefHeight="50.0" prefWidth="520.0" spacing="20.0">
+      <HBox layoutX="460.0" layoutY="550.0" prefHeight="50.0" prefWidth="520.0" spacing="20.0">
          <children>
             <Button fx:id="settingsButton" focusTraversable="false" mnemonicParsing="false" onAction="#goToSettings" prefHeight="50.0" prefWidth="250.0" text="Settings">
                <font>

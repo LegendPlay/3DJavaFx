@@ -25,6 +25,11 @@ public class StartPageController {
     }
 
     @FXML
+    private void goToScreenshots() {
+
+    }
+
+    @FXML
     private void createNewWorld() throws IOException {
         StartPage.setScene("createWorldMenu");
     }

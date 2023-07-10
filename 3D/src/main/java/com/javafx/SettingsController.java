@@ -20,18 +20,33 @@ public class SettingsController {
     private String cameFromMenu;
     private int world_id;
     private List<TextField> keyBindingFields;
+    private List<TextField> keyBindingFieldsFree;
     private String[] listOfKeys = {
             "Key-FlyForward",
             "Key-TurnLeft",
             "Key-TurnRight",
             "Key-Decelerate",
-            "Key-FlyDown",
-            "Key-RotateLeft",
-            "Key-RotateRight",
             "Key-RotateUp",
             "Key-RotateDown",
             "Key-SettingsMenu"
     };
+
+    private String[] listOfKeysFree = {
+            "KeyF-Forward",
+            "KeyF-Left",
+            "KeyF-Right",
+            "KeyF-Backward",
+            "KeyF-Down",
+            "KeyF-Up",
+            "KeyF-RotateLeft",
+            "KeyF-RotateRight",
+            "KeyF-RotateUp",
+            "KeyF-RotateDown",
+            "KeyF-SettingsMenu"
+    };
+
+    @FXML
+    private VBox keyBindingsVBoxFree;
 
     @FXML
     private VBox keyBindingsVBox;
@@ -69,6 +84,12 @@ public class SettingsController {
     private void resetDefaultKeyBindings() {
         SettingsHandler.setDefaultKeyBindings();
         getKeyBindingsFromSettings();
+    }
+
+    @FXML
+    private void resetDefaultKeyBindingsFree() {
+        SettingsHandler.setDefaultKeyBindingsFree();
+        getKeyBindingsFromSettingsFree();
     }
 
     @FXML
@@ -200,7 +221,9 @@ public class SettingsController {
         worldNameTextField.setText(data.getWorldName());
 
         keyBindingFields = new ArrayList<>();
+        keyBindingFieldsFree = new ArrayList<>();
         getKeyBindingsFromSettings();
+        getKeyBindingsFromSettingsFree();
     }
 
     private void getKeyBindingsFromSettings() {
@@ -212,6 +235,19 @@ public class SettingsController {
                 textField.setText(SettingsHandler.getKeyBindingValue(listOfKeys[i]));
                 keyBindingFields.add(textField);
                 i++;
+            }
+        } 
+    }
+
+    private void getKeyBindingsFromSettingsFree() {
+        int z = 0;
+        for (Node node : keyBindingsVBoxFree.getChildren()) {
+            if (node instanceof TextField) {
+                // set saved values to the textfields
+                TextField textField = (TextField) node;
+                textField.setText(SettingsHandler.getKeyBindingValue(listOfKeysFree[z]));
+                keyBindingFieldsFree.add(textField);
+                z++;
             }
         }
     }
