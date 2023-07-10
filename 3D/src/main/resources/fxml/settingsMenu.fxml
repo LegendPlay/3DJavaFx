@@ -15,7 +15,7 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onPressedAnchorPane" prefHeight="800.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="resetButton" focusTraversable="false" layoutX="839.0" layoutY="555.0" mnemonicParsing="false" onAction="#resetDefaultKeyBindings" text="Reset to default">
+      <Button fx:id="resetButton" focusTraversable="false" layoutX="839.0" layoutY="584.0" mnemonicParsing="false" onAction="#resetDefaultKeyBindings" text="Reset to default">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
@@ -41,9 +41,9 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Pane>
-      <Label layoutX="806.0" layoutY="165.0" text=" Key Bindings">
+      <Label layoutX="797.0" layoutY="165.0" text="Realistic Flight Mode">
          <font>
-            <Font size="24.0" />
+            <Font size="20.0" />
          </font>
       </Label>
       <VBox fx:id="keyBindingsVBox" layoutX="898.0" layoutY="224.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
@@ -61,18 +61,6 @@
                   <Cursor fx:constant="HAND" />
                </cursor></TextField>
             <TextField id="Key-Decelerate" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></TextField>
-            <TextField id="Key-FlyDown" disable="true" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></TextField>
-            <TextField id="Key-RotateLeft" disable="true" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></TextField>
-            <TextField id="Key-RotateRight" disable="true" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></TextField>
@@ -112,21 +100,6 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Fly down">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label text="Rotate left">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label text="Rotate right">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
             <Label text="Rotate up">
                <font>
                   <Font size="18.0" />
@@ -161,7 +134,7 @@
             </Button>
          </children>
       </HBox>
-      <Label layoutX="998.0" layoutY="105.0" text="Global Settings">
+      <Label layoutX="1005.0" layoutY="108.0" text="Key Bindings">
          <font>
             <Font size="24.0" />
          </font>
@@ -209,5 +182,133 @@
             <Font size="18.0" />
          </font>
       </RadioButton>
+      <VBox fx:id="keyBindingsVBoxFree" layoutX="1220.0" layoutY="224.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+         <children>
+            <TextField id="KeyF-Forward" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TextField>
+            <TextField id="KeyF-Left" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TextField>
+            <TextField id="KeyF-Right" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TextField>
+            <TextField id="KeyF-Backward" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TextField>
+            <TextField id="KeyF-Down" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TextField>
+            <TextField id="KeyF-Up" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TextField>
+            <TextField id="KeyF-RotateLeft" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TextField>
+            <TextField id="KeyF-RotateRight" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TextField>
+            <TextField id="KeyF-RotateUp" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TextField>
+            <TextField id="KeyF-RotateDown" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TextField>
+            <TextField id="KeyF-SettingsMenu" editable="false" focusTraversable="false" onKeyPressed="#onKeyPressedKeyBinding" onKeyReleased="#onKeyReleasedKeyBinding" promptText="Press a key">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TextField>
+         </children>
+      </VBox>
+      <VBox layoutX="1087.0" layoutY="224.0" prefHeight="331.0" prefWidth="124.0" spacing="3.0">
+         <children>
+            <Label text="Forward">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Left">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Right">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Backward">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Down">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Up">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Rotate left">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Rotate right">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Rotate up">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Rotate down">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Settings Menu">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button fx:id="resetButtonFree" focusTraversable="false" layoutX="1161.0" layoutY="584.0" mnemonicParsing="false" onAction="#resetDefaultKeyBindingsFree" text="Reset to default">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label layoutX="1149.0" layoutY="165.0" text="Free Fly Mode">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
