@@ -79,16 +79,16 @@ public class CameraHandlerFreeFlyMode extends CameraHandler {
     public void handleKeyPress(KeyEvent event) {
         if (event.getCode().equals(KeyCode.valueOf(this.keyForward))) {
             double deltaX = TRANSLATION_AMOUNT *
-                    Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
+                    Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle())));
             double deltaZ = TRANSLATION_AMOUNT *
-                    Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
+                    Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle())));
             coordinateX -= deltaX;
             coordinateZ -= deltaZ;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyBackward))) {
             double deltaX = TRANSLATION_AMOUNT *
-                    Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
+                    Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle())));
             double deltaZ = TRANSLATION_AMOUNT *
-                    Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
+                    Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle())));
             coordinateX += deltaX;
             coordinateZ += deltaZ;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyBackward))) {
@@ -97,13 +97,13 @@ public class CameraHandlerFreeFlyMode extends CameraHandler {
             coordinateX += deltaX;
             coordinateZ += deltaZ;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyRight))) {
-            double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
-            double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
+            double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() - 90));
+            double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() - 90));
             coordinateX += deltaX;
             coordinateZ += deltaZ;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyLeft))) {
-            double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
-            double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
+            double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle() + 90));
+            double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle() + 90));
             coordinateX += deltaX;
             coordinateZ += deltaZ;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateDown))) {
