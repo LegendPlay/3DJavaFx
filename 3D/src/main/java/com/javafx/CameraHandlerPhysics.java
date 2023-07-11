@@ -74,70 +74,35 @@ public class CameraHandlerPhysics extends CameraHandler {
 
     public void handleKeyPress(KeyEvent event) {
         if (event.getCode().equals(KeyCode.valueOf(this.keyFlyForward))) {
-            double deltaX = 10 *
-                    Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
-            double deltaZ = 10 *
-                    Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle()) % 360));
-            coordinateX -= deltaX;
-            coordinateZ -= deltaZ;
-
+            physics.accelerate();
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnLeft))) {
-            double deltaX = 10 * Math.sin(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
-            double deltaZ = 10 * Math.cos(Math.toRadians(cameraRotationY.getAngle() - 90) % 360);
-            coordinateX += deltaX;
-            coordinateZ += deltaZ;
+            curve = -1;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnRight))) {
-            double deltaX = 10 * Math.sin(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
-            double deltaZ = 10 * Math.cos(Math.toRadians(cameraRotationY.getAngle() + 90) % 360);
-            coordinateX += deltaX;
-            coordinateZ += deltaZ;
+            curve = 1;
+        } else if (event.getCode().equals(KeyCode.valueOf(this.keyDecelerate))) {
+            physics.decelerate();
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateDown))) {
-            rotX -= ROTATION_AMOUNT;
+            physics.turnUp(-ROTATION_AMOUNT);
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateUp))) {
-            rotX += ROTATION_AMOUNT;
+            physics.turnUp(ROTATION_AMOUNT);
         } else if (event.getCode().equals(KeyCode.valueOf(this.keySettingsMenu))) {
             try {
                 SettingsHandler.saveScreenshot(world_id, scene);
-        
+
                 StartPage.setSettingsScene("settingsMenu", "flightSimulator", world_id);
 
-                SettingsHandler.saveGameData(world_id, coordinateX, altitude, coordinateZ, rotX, rotY, rotZ, false);
+                SettingsHandler.saveGameData(world_id, camera.getTranslateX(), camera.getTranslateY(),
+                        camera.getTranslateZ(), physics.getAngleDown(), physics.getAngle(), rotZ, false);
                 System.out.println("Game saved!");
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            // TODO Load physics data after save
+
         } else {
         }
-
-        // TODO With Physics - @NMMN2 reminder: to save the data in db the X, Y, Z coordinates and X, Y, Z rotations are required
-
-        // if (event.getCode().equals(KeyCode.valueOf(this.keyFlyForward))) {
-        //     physics.accelerate();
-        // } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnLeft))) {
-        //     curve = -1;
-        // } else if (event.getCode().equals(KeyCode.valueOf(this.keyTurnRight))) {
-        //     curve = 1;
-        // } else if (event.getCode().equals(KeyCode.valueOf(this.keyDecelerate))) {
-        //     physics.decelerate();
-        // } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateDown))) {
-        //     // rotX -= ROTATION_AMOUNT;
-        //     physics.turnUp(-ROTATION_AMOUNT);
-        // } else if (event.getCode().equals(KeyCode.valueOf(this.keyRotateUp))) {
-        //     // rotX += ROTATION_AMOUNT;
-        //     physics.turnUp(ROTATION_AMOUNT);
-        // } else if (event.getCode().equals(KeyCode.valueOf(this.keySettingsMenu))) {
-        //     try {
-        //         StartPage.setSettingsScene("settingsMenu", "flightSimulator", world_id);
-
-        //         SettingsHandler.saveGameData(world_id, coordinateX, altitude, coordinateZ,
-        //                 rotX, rotY, rotZ, false);
-        //         System.out.println("Game saved!");
-        //     } catch (IOException e) {
-        //         e.printStackTrace();
-        //     }
-        // } else {
-        // }
 
     }
 
