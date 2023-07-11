@@ -79,18 +79,11 @@ public class CameraHandlerFreeFlyMode extends CameraHandler {
     public void handleKeyPress(KeyEvent event) {
         if (event.getCode().equals(KeyCode.valueOf(this.keyForward))) {
             double deltaX = TRANSLATION_AMOUNT *
-                    Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle())));
+                    Math.sin(Math.toRadians(cameraRotationY.getAngle()));
             double deltaZ = TRANSLATION_AMOUNT *
-                    Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle())));
+                    Math.cos(Math.toRadians(cameraRotationY.getAngle()));
             coordinateX -= deltaX;
             coordinateZ -= deltaZ;
-        } else if (event.getCode().equals(KeyCode.valueOf(this.keyBackward))) {
-            double deltaX = TRANSLATION_AMOUNT *
-                    Math.sin(Math.toRadians(Math.abs(cameraRotationY.getAngle())));
-            double deltaZ = TRANSLATION_AMOUNT *
-                    Math.cos(Math.toRadians(Math.abs(cameraRotationY.getAngle())));
-            coordinateX += deltaX;
-            coordinateZ += deltaZ;
         } else if (event.getCode().equals(KeyCode.valueOf(this.keyBackward))) {
             double deltaX = TRANSLATION_AMOUNT * Math.sin(Math.toRadians(cameraRotationY.getAngle()));
             double deltaZ = TRANSLATION_AMOUNT * Math.cos(Math.toRadians(cameraRotationY.getAngle()));
